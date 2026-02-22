@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "i0iJ42aZ/rI=",
+  "dgSpecHash": "Ah0aRAGNsbo=",
   "success": true,
   "projectFilePath": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\FitTrack.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\Prospi\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\10.0.3\\microsoft.aspnetcore.authentication.jwtbearer.10.0.3.nupkg.sha512",
+    "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\10.0.3\\microsoft.aspnetcore.identity.entityframeworkcore.10.0.3.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.3\\microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.bcl.cryptography\\9.0.4\\microsoft.bcl.cryptography.9.0.4.nupkg.sha512",
@@ -31,6 +32,7 @@
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\10.0.3\\microsoft.entityframeworkcore.sqlserver.10.0.3.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\10.0.3\\microsoft.entityframeworkcore.tools.10.0.3.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.extensions.dependencymodel\\10.0.3\\microsoft.extensions.dependencymodel.10.0.3.nupkg.sha512",
+    "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.extensions.identity.core\\10.0.3\\microsoft.extensions.identity.core.10.0.3.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.identity.client\\4.73.1\\microsoft.identity.client.4.73.1.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.identity.client.extensions.msal\\4.73.1\\microsoft.identity.client.extensions.msal.4.73.1.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.0.1\\microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
@@ -58,5 +60,18 @@
     "C:\\Users\\Prospi\\.nuget\\packages\\system.security.cryptography.pkcs\\9.0.4\\system.security.cryptography.pkcs.9.0.4.nupkg.sha512",
     "C:\\Users\\Prospi\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.4\\system.security.cryptography.protecteddata.9.0.4.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1510",
+      "level": "Warning",
+      "message": "PackageReference Microsoft.Extensions.Identity.Core no se eliminará. Considere la posibilidad de quitar este paquete de las dependencias, ya que es probable que no sea necesario.",
+      "projectPath": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\FitTrack.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\FitTrack.csproj",
+      "libraryId": "Microsoft.Extensions.Identity.Core",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

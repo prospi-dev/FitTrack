@@ -12,17 +12,17 @@ frontend/node_modules/
 frontend/dist/
 frontend/.vite/
 
-# ---- BACKEND (ASP.NET Core) ----
-backend/bin/
-backend/obj/
-backend/*.db
-backend/*.sqlite
-backend/*.pdb
-backend/.vs/
-backend/.vscode/
-backend/appsettings.Development.json
-backend/appsettings.Local.json
-backend/secrets.json
+# ---- BACKEND/FitTrack (ASP.NET Core) ----
+Backend/FitTrack/bin/
+Backend/FitTrack/obj/
+Backend/FitTrack/*.db
+Backend/FitTrack/*.sqlite
+Backend/FitTrack/*.pdb
+Backend/FitTrack/.vs/
+Backend/FitTrack/.vscode/
+Backend/FitTrack/appsettings.Development.json
+Backend/FitTrack/appsettings.Local.json
+Backend/FitTrack/secrets.json
 
 # ---- SYSTEM ----
 *.log
