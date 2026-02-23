@@ -143,7 +143,7 @@ public class AppDbContext : DbContext
             entity.HasOne(er => er.User)
                 .WithMany(u => u.ExerciseRequests)
                 .HasForeignKey(er => er.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             // Self-referencing FK — admin is also a User
             entity.HasOne(er => er.ReviewedByAdmin)
