@@ -6,8 +6,7 @@ namespace FitTrack.DTOs.WorkoutSessions;
 // and the list of sets they actually performed.
 public class CreateWorkoutSessionDTO
 {
-    [Required]
-    public int RoutineId { get; set; }
+    public int? RoutineId { get; set; }
 
     // Optional — defaults to UtcNow if not provided.
     // Lets the user backfill a session they forgot to log.
