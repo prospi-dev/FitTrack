@@ -5,7 +5,7 @@ namespace FitTrack.DTOs.Exercises;
 // This is what the client SENDS to create an exercise
 // DataAnnotations give us automatic validation — if Name is missing,
 // ASP.NET returns a 400 Bad Request before the controller even runs
-public class CreateExerciseDto
+public class CreateExerciseDTO
 {
     [Required]
     [MaxLength(150)]

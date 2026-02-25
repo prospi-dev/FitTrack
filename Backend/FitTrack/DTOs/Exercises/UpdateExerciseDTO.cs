@@ -4,7 +4,7 @@ namespace FitTrack.DTOs.Exercises;
 
 // Same as Create but all fields optional — for partial updates
 // If a field is null, we simply don't update it
-public class UpdateExerciseDto
+public class UpdateExerciseDTO
 {
     [MaxLength(150)]
     public string? Name { get; set; }

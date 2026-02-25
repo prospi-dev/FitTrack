@@ -2,7 +2,7 @@
 
 namespace FitTrack.DTOs.Routines;
 
-public class UpdateRoutineDto
+public class UpdateRoutineDTO
 {
     [MaxLength(150)]
     public string? Name { get; set; }

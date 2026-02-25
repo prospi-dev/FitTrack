@@ -2,7 +2,7 @@
 
 // For updating sets/reps/weight of an exercise already in a routine.
 // All nullable — only update what was sent.
-public class UpdateRoutineExerciseDto
+public class UpdateRoutineExerciseDTO
 {
     public int? Order { get; set; }
     public int? Sets { get; set; }

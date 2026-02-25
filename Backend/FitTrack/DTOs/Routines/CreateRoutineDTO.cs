@@ -4,7 +4,7 @@ namespace FitTrack.DTOs.Routines;
 
 // Just name + description — exercises are added separately
 // via POST /api/routines/{id}/exercises
-public class CreateRoutineDto
+public class CreateRoutineDTO
 {
     [Required]
     [MaxLength(150)]

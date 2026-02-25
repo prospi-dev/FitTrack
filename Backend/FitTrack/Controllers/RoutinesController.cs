@@ -41,7 +41,7 @@ public class RoutinesController : ControllerBase
             .Where(r => r.UserId == userId) // only this user's routines
             .Include(r => r.RoutineExercises)
                 .ThenInclude(re => re.Exercise) // include Exercise for each RoutineExercise
-            .Select(r => new RoutineDto
+            .Select(r => new RoutineDTO
             {
                 Id = r.Id,
                 Name = r.Name,
@@ -49,7 +49,7 @@ public class RoutinesController : ControllerBase
                 CreatedAt = r.CreatedAt,
                 Exercises = r.RoutineExercises
                     .OrderBy(re => re.Order) // respect the defined order
-                    .Select(re => new RoutineExerciseDto
+                    .Select(re => new RoutineExerciseDTO
                     {
                         Id = re.Id,
                         ExerciseId = re.ExerciseId,
@@ -79,7 +79,7 @@ public class RoutinesController : ControllerBase
             .Where(r => r.Id == id && r.UserId == userId) // must match both id and user
             .Include(r => r.RoutineExercises)
                 .ThenInclude(re => re.Exercise)
-            .Select(r => new RoutineDto
+            .Select(r => new RoutineDTO
             {
                 Id = r.Id,
                 Name = r.Name,
@@ -87,7 +87,7 @@ public class RoutinesController : ControllerBase
                 CreatedAt = r.CreatedAt,
                 Exercises = r.RoutineExercises
                     .OrderBy(re => re.Order)
-                    .Select(re => new RoutineExerciseDto
+                    .Select(re => new RoutineExerciseDTO
                     {
                         Id = re.Id,
                         ExerciseId = re.ExerciseId,
@@ -111,7 +111,7 @@ public class RoutinesController : ControllerBase
     // never sends it, which means a user can never create a routine
     // for someone else even if they try.
     [HttpPost]
-    public async Task<IActionResult> Create(CreateRoutineDto dto)
+    public async Task<IActionResult> Create(CreateRoutineDTO dto)
     {
         var userId = GetUserId();
 
@@ -126,7 +126,7 @@ public class RoutinesController : ControllerBase
         _db.Routines.Add(routine);
         await _db.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetById), new { id = routine.Id }, new RoutineDto
+        return CreatedAtAction(nameof(GetById), new { id = routine.Id }, new RoutineDTO
         {
             Id = routine.Id,
             Name = routine.Name,
@@ -140,7 +140,7 @@ public class RoutinesController : ControllerBase
     // Update name/description. Ownership check: we filter by both Id AND UserId.
     // If the routine doesn't exist OR belongs to someone else → 404.
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateRoutineDto dto)
+    public async Task<IActionResult> Update(int id, UpdateRoutineDTO dto)
     {
         var userId = GetUserId();
 
@@ -186,7 +186,7 @@ public class RoutinesController : ControllerBase
     // Add an exercise to a routine. First we verify the routine belongs to this
     // user, then we check the exercise actually exists, then we create the entry.
     [HttpPost("{routineId}/exercises")]
-    public async Task<IActionResult> AddExercise(int routineId, AddExerciseToRoutineDto dto)
+    public async Task<IActionResult> AddExercise(int routineId, AddExerciseToRoutineDTO dto)
     {
         var userId = GetUserId();
 
@@ -222,7 +222,7 @@ public class RoutinesController : ControllerBase
     // NOT the Exercise.Id — important distinction.
     [HttpPut("{routineId}/exercises/{exerciseEntryId}")]
     public async Task<IActionResult> UpdateExercise(
-        int routineId, int exerciseEntryId, UpdateRoutineExerciseDto dto)
+        int routineId, int exerciseEntryId, UpdateRoutineExerciseDTO dto)
     {
         var userId = GetUserId();
 

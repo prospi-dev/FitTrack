@@ -39,7 +39,7 @@ The goal of this project is to build a structured, secure, and scalable fitness 
 
 - [x] Authentication System
 - [x] Exercises CRUD
-- [ ] Routines CRUD
+- [x] Routines CRUD
 - [ ] Workout session logging
 - [ ] Progress visualization
 - [ ] Deployment

@@ -28,7 +28,7 @@ public class ExercisesController : ControllerBase
     {
         var exercises = await _db.Exercises
             .AsNoTracking() // read-only query — faster, no change tracking overhead
-            .Select(e => new ExerciseDto
+            .Select(e => new ExerciseDTO
             {
                 Id = e.Id,
                 Name = e.Name,
@@ -47,7 +47,7 @@ public class ExercisesController : ControllerBase
         var exercise = await _db.Exercises
             .AsNoTracking()
             .Where(e => e.Id == id)
-            .Select(e => new ExerciseDto
+            .Select(e => new ExerciseDTO
             {
                 Id = e.Id,
                 Name = e.Name,
@@ -68,7 +68,7 @@ public class ExercisesController : ControllerBase
     // If the token is missing or the role isn't Admin → 401/403 automatically.
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create(CreateExerciseDto dto)
+    public async Task<IActionResult> Create(CreateExerciseDTO dto)
     {
         var exercise = new Exercise
         {
@@ -82,7 +82,7 @@ public class ExercisesController : ControllerBase
         await _db.SaveChangesAsync();
 
         // 201 Created with a Location header pointing to the new resource
-        return CreatedAtAction(nameof(GetById), new { id = exercise.Id }, new ExerciseDto
+        return CreatedAtAction(nameof(GetById), new { id = exercise.Id }, new ExerciseDTO
         {
             Id = exercise.Id,
             Name = exercise.Name,
@@ -98,7 +98,7 @@ public class ExercisesController : ControllerBase
     // This is a partial update pattern — simpler than implementing PATCH.
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update(int id, UpdateExerciseDto dto)
+    public async Task<IActionResult> Update(int id, UpdateExerciseDTO dto)
     {
         var exercise = await _db.Exercises.FindAsync(id);
 

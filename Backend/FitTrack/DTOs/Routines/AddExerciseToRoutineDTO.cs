@@ -4,7 +4,7 @@ namespace FitTrack.DTOs.Routines;
 
 // Sent when the user adds an exercise to a routine.
 // ExerciseId tells us which exercise, the rest is the training config.
-public class AddExerciseToRoutineDto
+public class AddExerciseToRoutineDTO
 {
     [Required]
     public int ExerciseId { get; set; }

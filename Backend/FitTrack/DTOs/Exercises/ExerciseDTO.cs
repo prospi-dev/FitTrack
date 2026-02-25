@@ -1,7 +1,7 @@
 ﻿namespace FitTrack.DTOs.Exercises;
 
 // This is what we RETURN to the client — read-only, clean shape
-public class ExerciseDto
+public class ExerciseDTO
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;

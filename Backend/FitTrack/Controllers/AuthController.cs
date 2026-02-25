@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterDto dto)
+    public async Task<IActionResult> Register(RegisterDTO dto)
     {
         if (await _db.Users.AnyAsync(u => u.Email == dto.Email))
             return Conflict("Email already in use.");
@@ -38,7 +38,7 @@ public class AuthController : ControllerBase
 
         var token = _jwt.GenerateToken(user);
 
-        return Ok(new AuthResponseDto
+        return Ok(new AuthResponseDTO
         {
             Token = token,
             Name = user.Name,
@@ -48,7 +48,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginDto dto)
+    public async Task<IActionResult> Login(LoginDTO dto)
     {
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
 
@@ -57,7 +57,7 @@ public class AuthController : ControllerBase
 
         var token = _jwt.GenerateToken(user);
 
-        return Ok(new AuthResponseDto
+        return Ok(new AuthResponseDTO
         {
             Token = token,
             Name = user.Name,

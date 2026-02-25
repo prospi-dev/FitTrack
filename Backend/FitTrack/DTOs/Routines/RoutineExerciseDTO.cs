@@ -3,7 +3,7 @@
 // Represents one exercise entry inside a routine response.
 // We include the exercise name/muscleGroup so the frontend
 // doesn't need to make a second call to /api/exercises.
-public class RoutineExerciseDto
+public class RoutineExerciseDTO
 {
     public int Id { get; set; }
     public int ExerciseId { get; set; }
