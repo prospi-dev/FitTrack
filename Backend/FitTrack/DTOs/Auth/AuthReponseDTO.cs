@@ -1,6 +1,6 @@
 ﻿namespace FitTrack.DTOs.Auth;
 
-public class AuthResponseDto
+public class AuthResponseDTO
 {
     public string Token { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;

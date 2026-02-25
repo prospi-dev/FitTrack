@@ -8,7 +8,7 @@ public class WorkoutSession
 
     // Foreign keys
     public int UserId { get; set; }
-    public int RoutineId { get; set; }
+    public int? RoutineId { get; set; }
 
     // Navigation properties
     public User User { get; set; } = null!;
