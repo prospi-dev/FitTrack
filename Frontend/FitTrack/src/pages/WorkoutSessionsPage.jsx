@@ -1,3 +1,3 @@
-export default function LoginPage() {
-  return <div>Login</div>
+export default function WorkoutSessionsPage() {
+  return <div>Workout Sessions</div>
 }
