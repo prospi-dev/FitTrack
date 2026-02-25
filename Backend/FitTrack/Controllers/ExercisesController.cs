@@ -10,6 +10,7 @@ namespace FitTrack.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ExercisesController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -19,11 +20,10 @@ public class ExercisesController : ControllerBase
     }
 
     // GET api/exercises 
-    // Public — anyone can browse exercises, even unauthenticated users.
+    // Public — anyone can browse exercises, even unauthenticated users. => Changing it to authorized, every user must be authenticated to acess the app.
     // We project directly to ExerciseDto using LINQ Select to avoid
     // loading the navigation collections from the DB entirely.
     [HttpGet]
-    [AllowAnonymous]
     public async Task<IActionResult> GetAll()
     {
         var exercises = await _db.Exercises
@@ -41,7 +41,6 @@ public class ExercisesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [AllowAnonymous]
     public async Task<IActionResult> GetById(int id)
     {
         var exercise = await _db.Exercises
