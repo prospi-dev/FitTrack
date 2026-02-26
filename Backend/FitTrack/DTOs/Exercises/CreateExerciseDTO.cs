@@ -15,6 +15,6 @@ public class CreateExerciseDTO
     public string? Description { get; set; }
 
     [Required]
-    [MaxLength(100)]
-    public MuscleGroup MuscleGroup { get; set; } // validated against enum values automatically
+    [MinLength(1, ErrorMessage = "At least one muscle group is required.")]
+    public List<MuscleGroup> MuscleGroups { get; set; } = new();
 }

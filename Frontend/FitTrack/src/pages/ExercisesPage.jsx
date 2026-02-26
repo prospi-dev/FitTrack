@@ -2,6 +2,28 @@ import { useState, useEffect } from 'react'
 import { getExercises, createExercise, updateExercise, deleteExercise } from '../api/exercises'
 import { useAuth } from '../context/AuthContext'
 
+const MUSCLE_GROUPS = [
+  'Chest',
+  'Back',
+  'Lats',
+  'LowerBack',
+  'Shoulder',
+  'FrontDelts',
+  'SideDelts',
+  'RearDelts',
+  'Biceps',
+  'Triceps',
+  'Forearms',
+  'Abs',
+  'Obliques',
+  'Glutes',
+  'Quads',
+  'Hamstrings',
+  'Calves',
+  'FullBody',
+  'Cardio',
+]
+
 export default function ExercisesPage() {
   const { user } = useAuth()
   const isAdmin = user?.role === 'Admin'
@@ -36,7 +58,7 @@ export default function ExercisesPage() {
   // Matches against name OR muscle group.
   const filtered = exercises.filter(e =>
     e.name.toLowerCase().includes(search.toLowerCase()) ||
-    e.muscleGroup.toLowerCase().includes(search.toLowerCase()))
+    e.muscleGroups.some(mg => mg.toLowerCase().includes(search.toLowerCase())))
 
 
   // Delete 
@@ -49,7 +71,7 @@ export default function ExercisesPage() {
       alert('Failed to delete. It may be in use by a routine or session.')
     }
   }
-  
+
   return (
     <div>
       {/* Header */}
@@ -126,7 +148,13 @@ function ExerciseCard({ exercise, isAdmin, onEdit, onDelete }) {
     <div className="bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 flex items-center justify-between gap-3">
       <div className="min-w-0">
         <p className="font-medium text-white truncate">{exercise.name}</p>
-        <p className="text-xs text-blue-400 mt-0.5">{exercise.muscleGroup}</p>
+        <div className="flex flex-wrap gap-1 mt-1">
+          {exercise.muscleGroups.map(mg => (
+            <span key={mg} className="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full">
+              {mg}
+            </span>
+          ))}
+        </div>
         {exercise.description && (
           <p className="text-xs text-gray-500 mt-1 truncate">{exercise.description}</p>
         )}
@@ -162,8 +190,18 @@ function ExerciseModal({ exercise, onClose, onSaved }) {
   const [form, setForm] = useState({
     name: exercise?.name ?? '',
     description: exercise?.description ?? '',
-    muscleGroup: exercise?.muscleGroup ?? '',
+    muscleGroups: exercise?.muscleGroups ?? [], // array now
   })
+
+  //toggle handler for checkboxes
+  const toggleMuscleGroup = (mg) => {
+    setForm(prev => ({
+      ...prev,
+      muscleGroups: prev.muscleGroups.includes(mg)
+        ? prev.muscleGroups.filter(m => m !== mg)  // remove if already selected
+        : [...prev.muscleGroups, mg]                // add if not selected
+    }))
+  }
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -227,15 +265,32 @@ function ExerciseModal({ exercise, onClose, onSaved }) {
           </div>
 
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Muscle Group</label>
-            <input
-              type="text"
-              name="muscleGroup"
-              value={form.muscleGroup}
-              onChange={handleChange}
-              required
-              className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-blue-500 transition"
-            />
+            <label className="block text-sm text-gray-300 mb-2">
+              Muscle Groups
+              {form.muscleGroups.length === 0 && (
+                <span className="text-red-400 ml-2 text-xs">Pick at least one</span>
+              )}
+            </label>
+            <div className="grid grid-cols-2 gap-2">
+              {MUSCLE_GROUPS.map(mg => (
+                <label
+                  key={mg}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer text-sm transition
+                    ${form.muscleGroups.includes(mg)
+                      ? 'border-blue-500 bg-blue-500/10 text-white'
+                      : 'border-gray-700 bg-gray-800 text-gray-400'
+                    }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={form.muscleGroups.includes(mg)}
+                    onChange={() => toggleMuscleGroup(mg)}
+                    className="hidden" // hide the native checkbox — the whole label is the toggle
+                  />
+                  {mg}
+                </label>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -261,7 +316,7 @@ function ExerciseModal({ exercise, onClose, onSaved }) {
             </button>
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || form.muscleGroups.length === 0}
               className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition"
             >
               {loading ? 'Saving...' : isEdit ? 'Save changes' : 'Create'}

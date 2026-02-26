@@ -56,10 +56,13 @@ public class AppDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(150);
 
-            entity.Property(e => e.MuscleGroup)
-                .IsRequired()
-                .HasConversion<string>()
-                .HasMaxLength(100);
+            // Store MuscleGroups as a JSON array of strings e.g. ["Chest","Shoulder"]
+            entity.Property(e => e.MuscleGroups)
+                .HasConversion(
+                    v => System.Text.Json.JsonSerializer.Serialize(v.Select(m => m.ToString()).ToList(), (System.Text.Json.JsonSerializerOptions)null),
+                    v => System.Text.Json.JsonSerializer.Deserialize<List<string>>(v, (System.Text.Json.JsonSerializerOptions)null)
+                          .Select(s => Enum.Parse<MuscleGroup>(s)).ToList()
+                    );
         });
 
         // Routine

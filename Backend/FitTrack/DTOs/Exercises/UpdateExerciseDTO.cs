@@ -11,5 +11,7 @@ public class UpdateExerciseDTO
     public string? Name { get; set; }
 
     public string? Description { get; set; }
-    public MuscleGroup? MuscleGroup { get; set; } // nullable — only update if sent
+
+    // null means "don't update", empty list would clear all — so we check in the controller
+    public List<MuscleGroup>? MuscleGroups { get; set; }
 }
