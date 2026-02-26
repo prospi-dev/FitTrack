@@ -16,10 +16,10 @@ export const deleteRoutine = (id) =>
     axiosInstance.delete(`/routines/${id}`);
 
 export const addExerciseToRoutine = (routineId, data) =>
-    axiosInstance.post(`/routines/${routineId}/exercises`, data);
+    axiosInstance.post(`/routines/${routineId}/exercises`, data)
 
-export const updateExerciseInRoutine = (routineId, entryId, data) =>
-    axiosInstance.put(`/routines/${routineId}/exercises/${entryId}`, data);
+export const updateRoutineExercise = (routineId, entryId, data) =>
+    axiosInstance.put(`/routines/${routineId}/exercises/${entryId}`, data)
 
 export const removeExerciseFromRoutine = (routineId, entryId) =>
-    axiosInstance.delete(`/routines/${routineId}/exercises/${entryId}`);
+    axiosInstance.delete(`/routines/${routineId}/exercises/${entryId}`)

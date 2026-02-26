@@ -38,32 +38,33 @@ public class RoutinesController : ControllerBase
 
         var routines = await _db.Routines
             .AsNoTracking()
-            .Where(r => r.UserId == userId) // only this user's routines
+            .Where(r => r.UserId == userId)
             .Include(r => r.RoutineExercises)
-                .ThenInclude(re => re.Exercise) // include Exercise for each RoutineExercise
-            .Select(r => new RoutineDTO
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Description = r.Description,
-                CreatedAt = r.CreatedAt,
-                Exercises = r.RoutineExercises
-                    .OrderBy(re => re.Order) // respect the defined order
-                    .Select(re => new RoutineExerciseDTO
-                    {
-                        Id = re.Id,
-                        ExerciseId = re.ExerciseId,
-                        ExerciseName = re.Exercise.Name,
-                        MuscleGroup = re.Exercise.MuscleGroups.ToString(),
-                        Order = re.Order,
-                        Sets = re.Sets,
-                        Reps = re.Reps,
-                        WeightKg = re.WeightKg
-                    }).ToList()
-            })
-            .ToListAsync();
+                .ThenInclude(re => re.Exercise)
+            .ToListAsync(); // materialize first
 
-        return Ok(routines);
+        var result = routines.Select(r => new RoutineDTO
+        {
+            Id = r.Id,
+            Name = r.Name,
+            Description = r.Description,
+            CreatedAt = r.CreatedAt,
+            Exercises = r.RoutineExercises
+                .OrderBy(re => re.Order)
+                .Select(re => new RoutineExerciseDTO
+                {
+                    Id = re.Id,
+                    ExerciseId = re.ExerciseId,
+                    ExerciseName = re.Exercise.Name,
+                    MuscleGroup = string.Join(", ", re.Exercise.MuscleGroups.Select(m => m.ToString())),
+                    Order = re.Order,
+                    Sets = re.Sets,
+                    Reps = re.Reps,
+                    WeightKg = re.WeightKg
+                }).ToList()
+        });
+
+        return Ok(result);
     }
 
     // GET api/routines/{id}
@@ -74,36 +75,39 @@ public class RoutinesController : ControllerBase
     public async Task<IActionResult> GetById(int id)
     {
         var userId = GetUserId();
+
         var routine = await _db.Routines
             .AsNoTracking()
-            .Where(r => r.Id == id && r.UserId == userId) // must match both id and user
+            .Where(r => r.Id == id && r.UserId == userId)
             .Include(r => r.RoutineExercises)
                 .ThenInclude(re => re.Exercise)
-            .Select(r => new RoutineDTO
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Description = r.Description,
-                CreatedAt = r.CreatedAt,
-                Exercises = r.RoutineExercises
-                    .OrderBy(re => re.Order)
-                    .Select(re => new RoutineExerciseDTO
-                    {
-                        Id = re.Id,
-                        ExerciseId = re.ExerciseId,
-                        ExerciseName = re.Exercise.Name,
-                        MuscleGroup = re.Exercise.MuscleGroups.ToString(),
-                        Order = re.Order,
-                        Sets = re.Sets,
-                        Reps = re.Reps,
-                        WeightKg = re.WeightKg
-                    }).ToList()
-            })
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(); // materialize first
+
         if (routine is null)
             return NotFound($"Routine with ID {id} not found.");
 
-        return Ok(routine);
+        var result = new RoutineDTO
+        {
+            Id = routine.Id,
+            Name = routine.Name,
+            Description = routine.Description,
+            CreatedAt = routine.CreatedAt,
+            Exercises = routine.RoutineExercises
+                .OrderBy(re => re.Order)
+                .Select(re => new RoutineExerciseDTO
+                {
+                    Id = re.Id,
+                    ExerciseId = re.ExerciseId,
+                    ExerciseName = re.Exercise.Name,
+                    MuscleGroup = string.Join(", ", re.Exercise.MuscleGroups.Select(m => m.ToString())),
+                    Order = re.Order,
+                    Sets = re.Sets,
+                    Reps = re.Reps,
+                    WeightKg = re.WeightKg
+                }).ToList()
+        };
+
+        return Ok(result);
     }
 
     // POST api/routines
