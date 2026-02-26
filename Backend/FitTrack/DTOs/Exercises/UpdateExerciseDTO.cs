@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitTrack.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitTrack.DTOs.Exercises;
 
@@ -10,7 +11,5 @@ public class UpdateExerciseDTO
     public string? Name { get; set; }
 
     public string? Description { get; set; }
-
-    [MaxLength(100)]
-    public string? MuscleGroup { get; set; }
+    public MuscleGroup? MuscleGroup { get; set; } // nullable — only update if sent
 }

@@ -33,7 +33,7 @@ public class ExercisesController : ControllerBase
                 Id = e.Id,
                 Name = e.Name,
                 Description = e.Description,
-                MuscleGroup = e.MuscleGroup,
+                MuscleGroup = e.MuscleGroup.ToString(),
                 CreatedAt = e.CreatedAt
             })
             .ToListAsync();
@@ -51,7 +51,7 @@ public class ExercisesController : ControllerBase
                 Id = e.Id,
                 Name = e.Name,
                 Description = e.Description,
-                MuscleGroup = e.MuscleGroup,
+                MuscleGroup = e.MuscleGroup.ToString(),
                 CreatedAt = e.CreatedAt
             })
             .FirstOrDefaultAsync();
@@ -86,7 +86,7 @@ public class ExercisesController : ControllerBase
             Id = exercise.Id,
             Name = exercise.Name,
             Description = exercise.Description,
-            MuscleGroup = exercise.MuscleGroup,
+            MuscleGroup = exercise.MuscleGroup.ToString(),
             CreatedAt = exercise.CreatedAt
         });
     }
@@ -110,7 +110,7 @@ public class ExercisesController : ControllerBase
         if (dto.Description is not null)
             exercise.Description = dto.Description;
         if (dto.MuscleGroup is not null)
-            exercise.MuscleGroup = dto.MuscleGroup;
+            exercise.MuscleGroup = (MuscleGroup)dto.MuscleGroup;
 
         await _db.SaveChangesAsync();
 

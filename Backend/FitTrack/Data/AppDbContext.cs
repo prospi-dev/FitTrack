@@ -58,6 +58,7 @@ public class AppDbContext : DbContext
 
             entity.Property(e => e.MuscleGroup)
                 .IsRequired()
+                .HasConversion<string>()
                 .HasMaxLength(100);
         });
 

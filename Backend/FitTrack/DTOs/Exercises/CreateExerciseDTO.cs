@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitTrack.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitTrack.DTOs.Exercises;
 
@@ -15,5 +16,5 @@ public class CreateExerciseDTO
 
     [Required]
     [MaxLength(100)]
-    public string MuscleGroup { get; set; } = string.Empty;
+    public MuscleGroup MuscleGroup { get; set; } // validated against enum values automatically
 }

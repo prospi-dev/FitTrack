@@ -52,7 +52,7 @@ public class WorkoutSessionsController : ControllerBase
                         Id = se.Id,
                         ExerciseId = se.ExerciseId,
                         ExerciseName = se.Exercise.Name,
-                        MuscleGroup = se.Exercise.MuscleGroup,
+                        MuscleGroup = se.Exercise.MuscleGroup.ToString(),
                         SetNumber = se.SetNumber,
                         RepsCompleted = se.RepsCompleted,
                         WeightKg = se.WeightKg
@@ -90,7 +90,7 @@ public class WorkoutSessionsController : ControllerBase
                         Id = se.Id,
                         ExerciseId = se.ExerciseId,
                         ExerciseName = se.Exercise.Name,
-                        MuscleGroup = se.Exercise.MuscleGroup,
+                        MuscleGroup = se.Exercise.MuscleGroup.ToString(),
                         SetNumber = se.SetNumber,
                         RepsCompleted = se.RepsCompleted,
                         WeightKg = se.WeightKg
