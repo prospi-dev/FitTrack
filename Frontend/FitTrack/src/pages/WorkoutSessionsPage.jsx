@@ -398,7 +398,7 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
   )
 }
 
-// ─── Add Set Dropdown ─────────────────────────────────────────────────────────
+// Add Set Dropdown 
 function AddSetDropdown({ routine, sets, onAdd }) {
   const [open, setOpen] = useState(false)
   const [freeName, setFreeName] = useState('')

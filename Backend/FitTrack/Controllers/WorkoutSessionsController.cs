@@ -37,30 +37,31 @@ public class WorkoutSessionsController : ControllerBase
             .Include(s => s.Routine)
             .Include(s => s.SessionExercises)
                 .ThenInclude(se => se.Exercise)
-            .OrderByDescending(s => s.Date) // newest first
-            .Select(s => new WorkoutSessionDTO
-            {
-                Id = s.Id,
-                Date = s.Date,
-                RoutineId = s.RoutineId,
-                RoutineName = s.Routine.Name,
-                Exercises = s.SessionExercises
-                    .OrderBy(se => se.ExerciseId)
-                    .ThenBy(se => se.SetNumber) // group by exercise, then order by set
-                    .Select(se => new SessionExerciseDTO
-                    {
-                        Id = se.Id,
-                        ExerciseId = se.ExerciseId,
-                        ExerciseName = se.Exercise.Name,
-                        MuscleGroup = se.Exercise.MuscleGroups.ToString(),
-                        SetNumber = se.SetNumber,
-                        RepsCompleted = se.RepsCompleted,
-                        WeightKg = se.WeightKg
-                    }).ToList()
-            })
+            .OrderByDescending(s => s.Date)
             .ToListAsync();
 
-        return Ok(sessions);
+        var result = sessions.Select(s => new WorkoutSessionDTO
+        {
+            Id = s.Id,
+            Date = s.Date,
+            RoutineId = s.RoutineId,
+            RoutineName = s.Routine?.Name ?? "Free workout",
+            Exercises = s.SessionExercises
+                .OrderBy(se => se.ExerciseId)
+                .ThenBy(se => se.SetNumber)
+                .Select(se => new SessionExerciseDTO
+                {
+                    Id = se.Id,
+                    ExerciseId = se.ExerciseId,
+                    ExerciseName = se.Exercise.Name,
+                    MuscleGroup = string.Join(", ", se.Exercise.MuscleGroups.Select(m => m.ToString())),
+                    SetNumber = se.SetNumber,
+                    RepsCompleted = se.RepsCompleted,
+                    WeightKg = se.WeightKg
+                }).ToList()
+        });
+
+        return Ok(result);
     }
 
     // GET api/workoutsessions/{id}
@@ -76,32 +77,33 @@ public class WorkoutSessionsController : ControllerBase
             .Include(s => s.Routine)
             .Include(s => s.SessionExercises)
                 .ThenInclude(se => se.Exercise)
-            .Select(s => new WorkoutSessionDTO
-            {
-                Id = s.Id,
-                Date = s.Date,
-                RoutineId = s.RoutineId,
-                RoutineName = s.Routine.Name,
-                Exercises = s.SessionExercises
-                    .OrderBy(se => se.ExerciseId)
-                    .ThenBy(se => se.SetNumber) // group by exercise, then order by set
-                    .Select(se => new SessionExerciseDTO
-                    {
-                        Id = se.Id,
-                        ExerciseId = se.ExerciseId,
-                        ExerciseName = se.Exercise.Name,
-                        MuscleGroup = se.Exercise.MuscleGroups.ToString(),
-                        SetNumber = se.SetNumber,
-                        RepsCompleted = se.RepsCompleted,
-                        WeightKg = se.WeightKg
-                    }).ToList()
-            })
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(); 
 
         if (session is null)
             return NotFound($"Session with ID {id} not found.");
 
-        return Ok(session);
+        var result = new WorkoutSessionDTO
+        {
+            Id = session.Id,
+            Date = session.Date,
+            RoutineId = session.RoutineId,
+            RoutineName = session.Routine?.Name ?? "Free workout",
+            Exercises = session.SessionExercises
+                .OrderBy(se => se.ExerciseId)
+                .ThenBy(se => se.SetNumber)
+                .Select(se => new SessionExerciseDTO
+                {
+                    Id = se.Id,
+                    ExerciseId = se.ExerciseId,
+                    ExerciseName = se.Exercise.Name,
+                    MuscleGroup = string.Join(", ", se.Exercise.MuscleGroups.Select(m => m.ToString())),
+                    SetNumber = se.SetNumber,
+                    RepsCompleted = se.RepsCompleted,
+                    WeightKg = se.WeightKg
+                }).ToList()
+        };
+
+        return Ok(result);
     }
 
     // POST api/workoutsessions
@@ -128,7 +130,7 @@ public class WorkoutSessionsController : ControllerBase
         var foundCount = await _db.Exercises
             .CountAsync(e => exerciseIds.Contains(e.Id));
 
-        if(foundCount != exerciseIds.Count)
+        if (foundCount != exerciseIds.Count)
             return BadRequest("One or more exercise IDs are invalid.");
 
         // Build session
