@@ -47,7 +47,7 @@ namespace FitTrack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
                 });
 
             modelBuilder.Entity("FitTrack.Models.ExerciseRequest", b =>
@@ -100,7 +100,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ExerciseRequests");
+                    b.ToTable("ExerciseRequests", (string)null);
                 });
 
             modelBuilder.Entity("FitTrack.Models.Routine", b =>
@@ -129,7 +129,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Routines");
+                    b.ToTable("Routines", (string)null);
                 });
 
             modelBuilder.Entity("FitTrack.Models.RoutineExercise", b =>
@@ -164,7 +164,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("RoutineId");
 
-                    b.ToTable("RoutineExercises");
+                    b.ToTable("RoutineExercises", (string)null);
                 });
 
             modelBuilder.Entity("FitTrack.Models.SessionExercise", b =>
@@ -196,7 +196,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("WorkoutSessionId");
 
-                    b.ToTable("SessionExercises");
+                    b.ToTable("SessionExercises", (string)null);
                 });
 
             modelBuilder.Entity("FitTrack.Models.User", b =>
@@ -235,7 +235,7 @@ namespace FitTrack.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("FitTrack.Models.WorkoutSession", b =>
@@ -261,7 +261,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WorkoutSessions");
+                    b.ToTable("WorkoutSessions", (string)null);
                 });
 
             modelBuilder.Entity("FitTrack.Models.ExerciseRequest", b =>
