@@ -7,12 +7,21 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var allowedOrigins = builder.Configuration["AllowedOrigins"]?.Split(",")
+    ?? new[] { "http://localhost:5173" };
+
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("DevCors", policy =>
+    //options.AddPolicy("DevCors", policy =>
+    //{
+    //    policy.WithOrigins("http://localhost:5173")
+    //          .AllowAnyHeader()
+    //          .AllowAnyMethod();
+    //});
+    options.AddPolicy("FrontendPolicy", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(allowedOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -27,8 +36,12 @@ builder.Services.AddControllers()
     });
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
+
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<JwtService>();
 
@@ -61,8 +74,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("DevCors");
-app.UseAuthentication(); 
+app.UseCors("FrontendPolicy");
+app.UseAuthentication();
 
 app.UseAuthorization();
 

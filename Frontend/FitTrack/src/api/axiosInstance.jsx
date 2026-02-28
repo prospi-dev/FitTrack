@@ -2,9 +2,14 @@ import axios from 'axios';
 
 // Base URL points to backend
 
+// const axiosInstance = axios.create({
+//     baseURL: 'https://localhost:7239/api',
+// })
+
 const axiosInstance = axios.create({
-    baseURL: 'https://localhost:7239/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://localhost:7239/api',
 })
+
 
 // Request interceptor - automatically adds JWT token to headers
 // to every request if one exists in localStorage
