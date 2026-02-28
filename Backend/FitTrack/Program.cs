@@ -71,11 +71,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHttpsRedirection();
 }
 
 app.UseCors("FrontendPolicy");
 
-app.UseHttpsRedirection();
+
 
 app.UseAuthentication();
 
