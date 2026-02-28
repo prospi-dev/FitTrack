@@ -5,7 +5,7 @@ public class Exercise
     public int Id { get; set; }
     public string Name { get; set; }
     public string? Description { get; set; }
-    public string MuscleGroup { get; set; } = string.Empty;
+    public List<MuscleGroup> MuscleGroups { get; set; } = new(); // renamed + now a list
     public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
     // Navigation properties

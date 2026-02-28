@@ -6,20 +6,26 @@ import DashboardPage from './pages/DashboardPage'
 import ExercisesPage from './pages/ExercisesPage'
 import RoutinesPage from './pages/RoutinesPage'
 import WorkoutSessionsPage from './pages/WorkoutSessionsPage'
+import PublicRoute from './components/PublicRoute'
+import Layout from './components/Layout'
 
 
 export default function App() {
   return (
     <Routes>
       {/* Public routes */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      
+      <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+      <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+
       {/* Protected routes */}
-      <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-      <Route path="/exercises" element={<ProtectedRoute><ExercisesPage /></ProtectedRoute>} />
-      <Route path="/routines" element={<ProtectedRoute><RoutinesPage /></ProtectedRoute>} />
-      <Route path="/sessions" element={<ProtectedRoute><WorkoutSessionsPage /></ProtectedRoute>} />
+      <Route path="/dashboard" element={
+        <ProtectedRoute><Layout><DashboardPage /></Layout></ProtectedRoute>} />
+      <Route path="/exercises" element={
+        <ProtectedRoute><Layout><ExercisesPage /></Layout></ProtectedRoute>} />
+      <Route path="/routines" element={
+        <ProtectedRoute><Layout><RoutinesPage /></Layout></ProtectedRoute>} />
+      <Route path="/sessions" element={
+        <ProtectedRoute><Layout><WorkoutSessionsPage /></Layout></ProtectedRoute>} />
 
       {/* Default redirect */}
       <Route path="*" element={<Navigate to="/dashboard" replace />} />

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FitTrack.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace FitTrack.DTOs.Exercises;
 
@@ -14,6 +15,6 @@ public class CreateExerciseDTO
     public string? Description { get; set; }
 
     [Required]
-    [MaxLength(100)]
-    public string MuscleGroup { get; set; } = string.Empty;
+    [MinLength(1, ErrorMessage = "At least one muscle group is required.")]
+    public List<MuscleGroup> MuscleGroups { get; set; } = new();
 }

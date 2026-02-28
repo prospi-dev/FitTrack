@@ -4,6 +4,7 @@ using FitTrack.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitTrack.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260226211430_MuscleGroupsList")]
+    partial class MuscleGroupsList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace FitTrack.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercises", (string)null);
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("FitTrack.Models.ExerciseRequest", b =>
@@ -100,7 +103,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ExerciseRequests", (string)null);
+                    b.ToTable("ExerciseRequests");
                 });
 
             modelBuilder.Entity("FitTrack.Models.Routine", b =>
@@ -129,7 +132,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Routines", (string)null);
+                    b.ToTable("Routines");
                 });
 
             modelBuilder.Entity("FitTrack.Models.RoutineExercise", b =>
@@ -164,7 +167,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("RoutineId");
 
-                    b.ToTable("RoutineExercises", (string)null);
+                    b.ToTable("RoutineExercises");
                 });
 
             modelBuilder.Entity("FitTrack.Models.SessionExercise", b =>
@@ -196,7 +199,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("WorkoutSessionId");
 
-                    b.ToTable("SessionExercises", (string)null);
+                    b.ToTable("SessionExercises");
                 });
 
             modelBuilder.Entity("FitTrack.Models.User", b =>
@@ -235,7 +238,7 @@ namespace FitTrack.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("FitTrack.Models.WorkoutSession", b =>
@@ -261,7 +264,7 @@ namespace FitTrack.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WorkoutSessions", (string)null);
+                    b.ToTable("WorkoutSessions");
                 });
 
             modelBuilder.Entity("FitTrack.Models.ExerciseRequest", b =>

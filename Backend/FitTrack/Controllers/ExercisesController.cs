@@ -27,16 +27,17 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var exercises = await _db.Exercises
-            .AsNoTracking() // read-only query — faster, no change tracking overhead
-            .Select(e => new ExerciseDTO
-            {
-                Id = e.Id,
-                Name = e.Name,
-                Description = e.Description,
-                MuscleGroup = e.MuscleGroup,
-                CreatedAt = e.CreatedAt
-            })
+            .AsNoTracking()
             .ToListAsync();
+
+        var result = exercises.Select(e => new ExerciseDTO
+        {
+            Id = e.Id,
+            Name = e.Name,
+            Description = e.Description,
+            MuscleGroups = e.MuscleGroups.Select(m => m.ToString()).ToList(),
+            CreatedAt = e.CreatedAt
+        });
         return Ok(exercises);
     }
 
@@ -45,21 +46,19 @@ public class ExercisesController : ControllerBase
     {
         var exercise = await _db.Exercises
             .AsNoTracking()
-            .Where(e => e.Id == id)
-            .Select(e => new ExerciseDTO
-            {
-                Id = e.Id,
-                Name = e.Name,
-                Description = e.Description,
-                MuscleGroup = e.MuscleGroup,
-                CreatedAt = e.CreatedAt
-            })
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(e => e.Id == id);
 
         if (exercise is null)
             return NotFound($"Exercise with ID {id} not found.");
 
-        return Ok(exercise);
+        return Ok(new ExerciseDTO
+        {
+            Id = exercise.Id,
+            Name = exercise.Name,
+            Description = exercise.Description,
+            MuscleGroups = exercise.MuscleGroups.Select(m => m.ToString()).ToList(),
+            CreatedAt = exercise.CreatedAt
+        });
     }
 
     // POST api/exercises
@@ -73,7 +72,7 @@ public class ExercisesController : ControllerBase
         {
             Name = dto.Name,
             Description = dto.Description,
-            MuscleGroup = dto.MuscleGroup,
+            MuscleGroups = dto.MuscleGroups,
             CreatedAt = DateTime.UtcNow
         };
 
@@ -86,7 +85,7 @@ public class ExercisesController : ControllerBase
             Id = exercise.Id,
             Name = exercise.Name,
             Description = exercise.Description,
-            MuscleGroup = exercise.MuscleGroup,
+            MuscleGroups = exercise.MuscleGroups.Select(m => m.ToString()).ToList(),
             CreatedAt = exercise.CreatedAt
         });
     }
@@ -105,12 +104,11 @@ public class ExercisesController : ControllerBase
             return NotFound($"Exercise with ID {id} not found.");
 
         // Update only the fields that were provided (not null)
-        if (dto.Name is not null)
-            exercise.Name = dto.Name;
-        if (dto.Description is not null)
-            exercise.Description = dto.Description;
-        if (dto.MuscleGroup is not null)
-            exercise.MuscleGroup = dto.MuscleGroup;
+        if (dto.Name is not null) exercise.Name = dto.Name;
+        if (dto.Description is not null) exercise.Description = dto.Description;
+        // Only update if sent AND not empty — prevent accidental clearing
+        if (dto.MuscleGroups is not null && dto.MuscleGroups.Count > 0)
+            exercise.MuscleGroups = dto.MuscleGroups;
 
         await _db.SaveChangesAsync();
 

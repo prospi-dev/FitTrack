@@ -1,4 +1,6 @@
-﻿namespace FitTrack.Models;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace FitTrack.Models;
 
 public class SessionExercise
 {
