@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FitTrack.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260228221559_InitialPostgres")]
+    [Migration("20260228225237_InitialPostgres")]
     partial class InitialPostgres
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace FitTrack.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.3")
+                .HasAnnotation("ProductVersion", "9.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
