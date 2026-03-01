@@ -13,12 +13,6 @@ var allowedOrigins = builder.Configuration["AllowedOrigins"]?.Split(",")
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    //options.AddPolicy("DevCors", policy =>
-    //{
-    //    policy.WithOrigins("http://localhost:5173")
-    //          .AllowAnyHeader()
-    //          .AllowAnyMethod();
-    //});
     options.AddPolicy("FrontendPolicy", policy =>
     {
         policy.WithOrigins(allowedOrigins)
@@ -36,9 +30,6 @@ builder.Services.AddControllers()
     });
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
-
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -65,6 +56,13 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+// Apply pending migrations automatically on startup
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -75,11 +73,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("FrontendPolicy");
-
-
-
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
