@@ -41,9 +41,9 @@ export default function Navbar() {
           <NavLink to="/exercises" className={linkClass}>Exercises</NavLink>
           <NavLink to="/routines" className={linkClass}>Routines</NavLink>
           <NavLink to="/sessions" className={linkClass}>Sessions</NavLink>
-          {isAdmin && (
+          {isAdmin ? (
             <NavLink to="/admin/requests" className={linkClass}>Requests</NavLink>
-          )}
+          ) : <NavLink to="/requests" className={linkClass}>Requests</NavLink>}
         </div>
 
         {/* User + logout */}
