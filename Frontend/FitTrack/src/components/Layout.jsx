@@ -1,12 +1,14 @@
+import Footer from './Footer'
 import Navbar from './Navbar'
 
 export default function Layout({ children }) {
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <Navbar />
-      <main className="max-w-5xl mx-auto px-4 py-6 pb-24 md:pb-8 md:px-6">
+      <main className="max-w-5xl mx-auto px-4 py-6 pb-24 md:pb-8 md:px-6 flex-1 w-full">
         {children}
       </main>
+      <Footer />
     </div>
   )
 }

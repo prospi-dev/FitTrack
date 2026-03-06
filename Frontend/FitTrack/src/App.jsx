@@ -8,7 +8,10 @@ import RoutinesPage from './pages/RoutinesPage'
 import WorkoutSessionsPage from './pages/WorkoutSessionsPage'
 import PublicRoute from './components/PublicRoute'
 import Layout from './components/Layout'
-
+import LandingPage from './pages/LandingPage'
+import AboutPage from './pages/AboutPage'
+import PrivacyPage from './pages/PrivacyPage'
+import TermsPage from './pages/TermsPage'
 
 export default function App() {
   return (
@@ -16,6 +19,10 @@ export default function App() {
       {/* Public routes */}
       <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
       <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+      <Route path="/" element={<PublicRoute><LandingPage /></PublicRoute>} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/privacy" element={<PrivacyPage />} />
+      <Route path="/terms" element={<TermsPage />} />
 
       {/* Protected routes */}
       <Route path="/dashboard" element={

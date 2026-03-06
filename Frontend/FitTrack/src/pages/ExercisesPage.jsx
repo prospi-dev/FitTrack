@@ -106,7 +106,7 @@ export default function ExercisesPage() {
           {filtered.length === 0 ? (
             <p className="text-gray-400 text-sm">No exercises found.</p>
           ) : (
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent pr-1">
               {filtered.map(exercise => (
                 <ExerciseCard
                   key={exercise.id}
