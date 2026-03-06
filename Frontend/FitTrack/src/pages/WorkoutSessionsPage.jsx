@@ -96,20 +96,22 @@ export default function WorkoutSessionsPage() {
 function SessionCard({ session, onToggle, onDelete, isExpanded }) {
   const sessionDate = new Date(session.date)
 
-  const grouped = Object.values(
-    session.exercises.reduce((acc, entry) => {
-      const key = entry.exerciseId
-      if (!acc[key]) {
-        acc[key] = {
-          exerciseId: entry.exerciseId,
-          exerciseName: entry.exerciseName,
-          sets: []
-        }
+  // Group exercises while preserving the order of first appearance
+  const grouped = []
+  const seen = new Map()
+  
+  session.exercises.forEach(entry => {
+    if (!seen.has(entry.exerciseId)) {
+      const group = {
+        exerciseId: entry.exerciseId,
+        exerciseName: entry.exerciseName,
+        sets: []
       }
-      acc[key].sets.push(entry)
-      return acc
-    }, {})
-  )
+      seen.set(entry.exerciseId, group)
+      grouped.push(group)
+    }
+    seen.get(entry.exerciseId).sets.push(entry)
+  })
 
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
