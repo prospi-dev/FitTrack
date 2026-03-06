@@ -10,7 +10,6 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'https://localhost:5173/api',
 })
 
-console.log(import.meta.env.VITE_API_URL)
 // Request interceptor - automatically adds JWT token to headers
 // to every request if one exists in localStorage
 // This means we never have to manually add the token to each request

@@ -4,27 +4,30 @@
 
 The goal of this project is to build a structured, secure, and scalable fitness tracking platform using modern web technologies.
 
-## 🚀 Features 
+FItTrack is a personal project built to practise full-stack development with React and .NET.
+
+## 🚀 Features
 
 **🔐 Authentication**
 
 - User registration and login (JWT-based authentication)
 - Secure password hashing
 - Protected routes
-  
+
 **🏋️ Routine Management**
 
 - Create, edit, and delete routines
 - Add exercises to routines
 - Personalized data per user
-  
+
 **📝 Workout Logging**
 
 - Register training sessions
 - Record sets (weight & reps)
 - Edit and delete workout logs
-  
+
 **📈 Progress Tracking**
+
 - View training history
 - Compare performance over time
 - Track personal records
@@ -37,16 +40,13 @@ The goal of this project is to build a structured, secure, and scalable fitness 
 
 ## 📌 Roadmap
 
-- [x] Authentication System
-- [x] Exercises CRUD
-- [x] Routines CRUD
-- [x] Workout session logging
-- [ ] Progress visualization
-- [x] Deployment
+- [X]  Authentication System
+- [X]  Exercises CRUD
+- [X]  Routines CRUD
+- [X]  Workout session logging
+- [X]  Deployment
 
 ## 🔮 Future Improvements
 
-- Dark Mode
 - Export training history
 - Data visualization charts
-  
