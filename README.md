@@ -4,49 +4,87 @@
 
 The goal of this project is to build a structured, secure, and scalable fitness tracking platform using modern web technologies.
 
-FItTrack is a personal project built to practise full-stack development with React and .NET.
+FitTrack is a personal project built to practise full-stack development with React and .NET.
+
+🔗 **Live demo:** [https://fittrack-prospi.netlify.app/](https://fittrack-prospi.netlify.app/)
 
 ## 🚀 Features
 
 **🔐 Authentication**
 
 - User registration and login (JWT-based authentication)
-- Secure password hashing
-- Protected routes
+- Secure password hashing with BCrypt
+- Protected and public routes
+- Automatic session expiration handling
 
-**🏋️ Routine Management**
+**🏋️ Exercise Catalogue**
+
+- Browse a curated exercise catalogue with muscle group filtering
+- Admin-managed catalogue
+- Users can submit exercise requests for review
+
+**📋 Routine Management**
 
 - Create, edit, and delete routines
-- Add exercises to routines
+- Add exercises with sets, reps, and weight
+- Reorder exercises within a routine
 - Personalized data per user
 
 **📝 Workout Logging**
 
-- Register training sessions
-- Record sets (weight & reps)
-- Edit and delete workout logs
+- Log training sessions linked to routines or as free workouts
+- Record sets (weight & reps) per exercise
+- View and delete past sessions
 
-**📈 Progress Tracking**
+**👤 User Profile**
 
-- View training history
-- Compare performance over time
-- Track personal records
+- Update display name
+- Change password (with current password verification)
+- Delete account
+
+**⚙️ Admin Panel**
+
+- Review and approve/reject user exercise requests
+- Approved exercises are automatically added to the catalogue
+
+**🌐 Public Pages**
+
+- Landing page, About, Privacy Policy, Terms of Use
+- Contact form (EmailJS)
 
 ## 💡 Tech Stack
 
-- **Frontend**: React + Vite
-- **Backend**: ASP .NET Core Web API
-- **Styling**: Tailwind CSS
+**Frontend**
+- React 19 + Vite
+- React Router v7
+- Tailwind CSS v4
+- Axios
+- EmailJS
+
+**Backend**
+- ASP.NET Core 9 Web API
+- Entity Framework Core
+- PostgreSQL
+- JWT Authentication
+- BCrypt
+
+**Infrastructure**
+- Docker
+- Render (deployment)
 
 ## 📌 Roadmap
 
-- [X]  Authentication System
-- [X]  Exercises CRUD
-- [X]  Routines CRUD
-- [X]  Workout session logging
-- [X]  Deployment
+- [x] Authentication System
+- [x] Exercise catalogue
+- [x] Exercise requests (user → admin flow)
+- [x] Routines CRUD
+- [x] Workout session logging
+- [x] User profile management
+- [x] Admin panel
+- [x] Deployment
 
 ## 🔮 Future Improvements
 
+- Data visualization charts (progress over time)
 - Export training history
-- Data visualization charts
+- Personal records tracking
