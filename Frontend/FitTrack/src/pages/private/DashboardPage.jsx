@@ -51,6 +51,8 @@ export default function DashboardPage() {
     fetchStats()
   }, [])
 
+  const isNewUser = !loading && stats?.totalSessions === 0 && stats?.totalRoutines === 0
+
   return (
     <div>
       {/* Header */}
@@ -86,27 +88,54 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Quick access */}
-      <h2 className="text-lg font-semibold mb-4 text-gray-300">Quick Access</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Link to="/exercises" className="bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl p-6 transition group">
-          <div className="text-2xl mb-2">🏋️</div>
-          <h3 className="text-base font-semibold mb-1 group-hover:text-blue-400 transition">Exercises</h3>
-          <p className="text-gray-400 text-sm">Browse the exercise catalogue</p>
-        </Link>
+      {/* New user empty state */}
+      {isNewUser ? (
+        <div className="bg-gray-900 border border-gray-800 rounded-xl p-8 text-center">
+          <p className="text-4xl mb-3">🚀</p>
+          <h2 className="text-lg font-semibold text-white mb-2">Ready to start training?</h2>
+          <p className="text-gray-400 text-sm mb-6 max-w-sm mx-auto">
+            Create your first routine, browse exercises, and start logging your workouts.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Link
+              to="/routines"
+              className="bg-blue-600 hover:bg-blue-500 text-white text-sm px-5 py-2 rounded-xl transition"
+            >
+              Create a routine
+            </Link>
+            <Link
+              to="/exercises"
+              className="bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm px-5 py-2 rounded-xl transition"
+            >
+              Browse exercises
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* Quick access */}
+          <h2 className="text-lg font-semibold mb-4 text-gray-300">Quick Access</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <Link to="/exercises" className="bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl p-6 transition group">
+              <div className="text-2xl mb-2">🏋️</div>
+              <h3 className="text-base font-semibold mb-1 group-hover:text-blue-400 transition">Exercises</h3>
+              <p className="text-gray-400 text-sm">Browse the exercise catalogue</p>
+            </Link>
 
-        <Link to="/routines" className="bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl p-6 transition group">
-          <div className="text-2xl mb-2">📋</div>
-          <h3 className="text-base font-semibold mb-1 group-hover:text-blue-400 transition">Routines</h3>
-          <p className="text-gray-400 text-sm">Manage your training routines</p>
-        </Link>
+            <Link to="/routines" className="bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl p-6 transition group">
+              <div className="text-2xl mb-2">📋</div>
+              <h3 className="text-base font-semibold mb-1 group-hover:text-blue-400 transition">Routines</h3>
+              <p className="text-gray-400 text-sm">Manage your training routines</p>
+            </Link>
 
-        <Link to="/sessions" className="bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl p-6 transition group">
-          <div className="text-2xl mb-2">📈</div>
-          <h3 className="text-base font-semibold mb-1 group-hover:text-blue-400 transition">Sessions</h3>
-          <p className="text-gray-400 text-sm">Log and review your workouts</p>
-        </Link>
-      </div>
+            <Link to="/sessions" className="bg-gray-900 hover:bg-gray-800 border border-gray-800 rounded-xl p-6 transition group">
+              <div className="text-2xl mb-2">📈</div>
+              <h3 className="text-base font-semibold mb-1 group-hover:text-blue-400 transition">Sessions</h3>
+              <p className="text-gray-400 text-sm">Log and review your workouts</p>
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   )
 }

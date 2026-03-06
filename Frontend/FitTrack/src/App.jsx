@@ -15,7 +15,7 @@ import TermsPage from './pages/public/TermsPage'
 import ProfilePage from './pages/private/ProfilePage'
 import ExerciseRequestsPage from './pages/private/ExerciseRequestsPage'
 import AdminRequestsPage from './pages/private/AdminRequestsPage'
-
+import NotFoundPage from './pages/public/NotFoundPage'
 
 export default function App() {
   return (
@@ -44,8 +44,9 @@ export default function App() {
       <Route path="/admin/requests" element={
         <ProtectedRoute><Layout><AdminRequestsPage /></Layout></ProtectedRoute>
       } />
-      {/* Default redirect */}
-      <Route path="*" element={<Navigate to="/dashboard" replace />} />
+
+      {/* 404 */}
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }
