@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import {
   getRoutines, createRoutine, updateRoutine, deleteRoutine,
   addExerciseToRoutine, updateRoutineExercise, removeExerciseFromRoutine
-} from '../api/routines'
-import { getExercises } from '../api/exercises'
+} from '../../api/routines'
+import { getExercises } from '../../api/exercises'
 
 export default function RoutinesPage() {
   const [routines, setRoutines] = useState([])

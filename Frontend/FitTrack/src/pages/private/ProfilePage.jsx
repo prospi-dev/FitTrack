@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
-import { updateName, changePassword, deleteAccount } from '../api/profile'
+import { useAuth } from '../../context/AuthContext'
+import { updateName, changePassword, deleteAccount } from '../../api/profile'
 
 export default function ProfilePage() {
   const { user, login, logout } = useAuth()

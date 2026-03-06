@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getSessions, deleteSession, getSession, createSession } from '../api/workoutSessions'
-import { getRoutines } from '../api/routines'
+import { getSessions, deleteSession, getSession, createSession } from '../../api/workoutSessions'
+import { getRoutines } from '../../api/routines'
 
 export default function WorkoutSessionsPage() {
   const [sessions, setSessions] = useState([])

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useAuth } from '../context/AuthContext'
-import { getMyRequests, createRequest, deleteRequest } from '../api/exerciseRequests'
+import { useAuth } from '../../context/AuthContext'
+import { getMyRequests, createRequest, deleteRequest } from '../../api/exerciseRequests'
 
 const MUSCLE_GROUPS = [
   'Chest', 'Back', 'Lats', 'LowerBack',

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllRequests, reviewRequest } from '../api/exerciseRequests'
+import { getAllRequests, reviewRequest } from '../../api/exerciseRequests'
 
 const statusBadge = (status) => {
   const styles = {

@@ -1,8 +1,8 @@
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../../context/AuthContext'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getRoutines } from '../api/routines'
-import { getSessions } from '../api/workoutSessions'
+import { getRoutines } from '../../api/routines'
+import { getSessions } from '../../api/workoutSessions'
 
 export default function DashboardPage() {
   const { user } = useAuth()
