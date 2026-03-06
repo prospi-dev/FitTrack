@@ -6,7 +6,7 @@ export default function Navbar() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const isAdmin = user?.role === 'Admin'
-  
+
   const handleLogout = () => {
     logout()
     navigate('/login')
@@ -41,7 +41,7 @@ export default function Navbar() {
           <NavLink to="/exercises" className={linkClass}>Exercises</NavLink>
           <NavLink to="/routines" className={linkClass}>Routines</NavLink>
           <NavLink to="/sessions" className={linkClass}>Sessions</NavLink>
-          {user?.isAdmin && (
+          {isAdmin && (
             <NavLink to="/admin/requests" className={linkClass}>Requests</NavLink>
           )}
         </div>
