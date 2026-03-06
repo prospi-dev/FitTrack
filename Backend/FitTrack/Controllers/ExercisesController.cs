@@ -4,7 +4,6 @@ using FitTrack.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Validation;
 
 namespace FitTrack.Controllers;
 
