@@ -42,7 +42,7 @@ The goal of this project is to build a structured, secure, and scalable fitness 
 - [x] Routines CRUD
 - [x] Workout session logging
 - [ ] Progress visualization
-- [ ] Deployment
+- [x] Deployment
 
 ## 🔮 Future Improvements
 
