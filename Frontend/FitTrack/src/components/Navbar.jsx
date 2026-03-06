@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import logo from '../assets/logos/logo.png'
 
@@ -19,8 +19,7 @@ export default function Navbar() {
 
   // Mobile bottom tab links
   const tabClass = ({ isActive }) =>
-    `flex flex-col items-center gap-0.5 text-xs transition ${
-      isActive ? 'text-blue-400' : 'text-gray-500'
+    `flex flex-col items-center gap-0.5 text-xs transition ${isActive ? 'text-blue-400' : 'text-gray-500'
     }`
 
   return (
@@ -45,9 +44,9 @@ export default function Navbar() {
 
         {/* User + logout */}
         <div className="flex items-center gap-4">
-          <span className="text-gray-400 text-base">
+          <Link to="/profile" className="text-gray-400 text-base hover:text-white transition">
             Hey, <span className="text-white font-medium">{user?.name}</span>
-          </span>
+          </Link>
           <button
             onClick={handleLogout}
             className="text-sm bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg transition cursor-pointer"
@@ -65,12 +64,17 @@ export default function Navbar() {
           className="w-15 cursor-pointer"
           onClick={() => navigate('/dashboard')}
         />
-        <button
-          onClick={handleLogout}
-          className="text-sm bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-gray-700 hover:text-white transition"
-        >
-          Logout
-        </button>
+        <div>
+          <Link to="/profile" className="text-white text-base hover:text-gray-300 transition mr-4">
+            <span className="font-medium">{user?.name}</span>
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="text-sm bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-gray-700 hover:text-white transition"
+          >
+            Logout
+          </button></div>
+
       </div>
 
       {/* ── MOBILE BOTTOM TAB BAR ── */}

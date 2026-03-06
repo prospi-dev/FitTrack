@@ -12,6 +12,7 @@ import LandingPage from './pages/LandingPage'
 import AboutPage from './pages/AboutPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
+import ProfilePage from './pages/ProfilePage'
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <ProtectedRoute><Layout><RoutinesPage /></Layout></ProtectedRoute>} />
       <Route path="/sessions" element={
         <ProtectedRoute><Layout><WorkoutSessionsPage /></Layout></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><Layout><ProfilePage /></Layout></ProtectedRoute>} />
 
       {/* Default redirect */}
       <Route path="*" element={<Navigate to="/dashboard" replace />} />

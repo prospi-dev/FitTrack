@@ -37,7 +37,7 @@ public class ExercisesController : ControllerBase
             MuscleGroups = e.MuscleGroups.Select(m => m.ToString()).ToList(),
             CreatedAt = e.CreatedAt
         });
-        return Ok(exercises);
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
