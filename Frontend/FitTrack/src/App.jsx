@@ -13,6 +13,9 @@ import AboutPage from './pages/AboutPage'
 import PrivacyPage from './pages/PrivacyPage'
 import TermsPage from './pages/TermsPage'
 import ProfilePage from './pages/ProfilePage'
+import ExerciseRequestsPage from './pages/ExerciseRequestsPage'
+import AdminRequestsPage from './pages/AdminRequestsPage'
+
 
 export default function App() {
   return (
@@ -35,7 +38,12 @@ export default function App() {
       <Route path="/sessions" element={
         <ProtectedRoute><Layout><WorkoutSessionsPage /></Layout></ProtectedRoute>} />
       <Route path="/profile" element={<ProtectedRoute><Layout><ProfilePage /></Layout></ProtectedRoute>} />
-
+      <Route path="/requests" element={
+        <ProtectedRoute><Layout><ExerciseRequestsPage /></Layout></ProtectedRoute>
+      } />
+      <Route path="/admin/requests" element={
+        <ProtectedRoute><Layout><AdminRequestsPage /></Layout></ProtectedRoute>
+      } />
       {/* Default redirect */}
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>

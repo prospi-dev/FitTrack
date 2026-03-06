@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getExercises, createExercise, updateExercise, deleteExercise } from '../api/exercises'
 import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const MUSCLE_GROUPS = [
   'Chest',
@@ -31,7 +32,7 @@ export default function ExercisesPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [search, setSearch] = useState('')
-
+  const navigate = useNavigate()
   // Modal state — null = closed, 'create' or the exercise object = open
   const [modal, setModal] = useState(null)
 
@@ -77,14 +78,21 @@ export default function ExercisesPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">Exercises</h1>
-        {isAdmin && (
+        {isAdmin ? (
           <button
             onClick={() => setModal('create')}
             className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
           >
             + Add
           </button>
-        )}
+        ) :
+          <button
+            onClick={() => navigate('/requests')}
+            className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+          >
+            Request Addition
+          </button>
+        }
       </div>
 
       {/* Search bar */}
