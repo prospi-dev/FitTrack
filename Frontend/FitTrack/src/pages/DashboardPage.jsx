@@ -28,8 +28,9 @@ export default function DashboardPage() {
           s => new Date(s.date) >= weekAgo
         ).length
 
-        const lastSession = sessions.length > 0
-          ? new Date(sessions[sessions.length - 1].date).toLocaleDateString('en-GB', {
+        const sortedSessions = [...sessions].sort((a, b) => new Date(b.date) - new Date(a.date))
+        const lastSession = sortedSessions.length > 0
+          ? new Date(sortedSessions[0].date).toLocaleDateString('en-GB', {
               day: 'numeric', month: 'short', year: 'numeric'
             })
           : null
