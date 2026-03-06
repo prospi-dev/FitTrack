@@ -3,24 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|solutionrelative:dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\fittrack.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|solutionrelative:fittrack.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Migrations\\20260228225237_InitialPostgres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20260228225237_InitialPostgres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\controllers\\exercisescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|solutionrelative:controllers\\exercisescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\nuget.config||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|solutionrelative:nuget.config||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -29,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Migrations\\20260228221559_InitialPostgres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20260228221559_InitialPostgres.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{77AE7E79-E7ED-0663-1F43-CEE6BE831C13}|FitTrack.csproj|c:\\users\\prospi\\documents\\dev\\projects\\fittrack\\backend\\fittrack\\controllers\\workoutsessionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -110,37 +98,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Dockerfile",
-              "RelativeDocumentMoniker": "Dockerfile",
-              "ToolTip": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Dockerfile",
-              "RelativeToolTip": "Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-02-28T23:05:54.675Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "20260228225237_InitialPostgres.cs",
-              "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Migrations\\20260228225237_InitialPostgres.cs",
-              "RelativeDocumentMoniker": "Migrations\\20260228225237_InitialPostgres.cs",
-              "ToolTip": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Migrations\\20260228225237_InitialPostgres.cs",
-              "RelativeToolTip": "Migrations\\20260228225237_InitialPostgres.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAQwBAAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T22:52:37.711Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "20260228221559_InitialPostgres.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Migrations\\20260228221559_InitialPostgres.cs",
               "RelativeDocumentMoniker": "Migrations\\20260228221559_InitialPostgres.cs",
@@ -148,12 +114,11 @@
               "RelativeToolTip": "Migrations\\20260228221559_InitialPostgres.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T22:16:00.044Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-28T22:16:00.044Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 5,
               "Title": "WorkoutSessionsController.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Controllers\\WorkoutSessionsController.cs",
               "RelativeDocumentMoniker": "Controllers\\WorkoutSessionsController.cs",
@@ -161,25 +126,24 @@
               "RelativeToolTip": "Controllers\\WorkoutSessionsController.cs",
               "ViewState": "AgIAAEgAAAAAAAAAAAAiwE8AAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T21:39:44.55Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T21:39:44.55Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAAAYwEwAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAJsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-23T00:09:29.134Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "appsettings.Development.json",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\appsettings.Development.json",
               "RelativeDocumentMoniker": "appsettings.Development.json",
@@ -187,8 +151,7 @@
               "RelativeToolTip": "appsettings.Development.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-23T19:40:55.775Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-23T19:40:55.775Z"
             },
             {
               "$type": "Document",
@@ -200,25 +163,11 @@
               "RelativeToolTip": "FitTrack.csproj",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAABcAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-02-22T23:22:42.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T23:22:42.581Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "NuGet.Config",
-              "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\NuGet.Config",
-              "RelativeDocumentMoniker": "NuGet.Config",
-              "ToolTip": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\NuGet.Config",
-              "RelativeToolTip": "NuGet.Config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2026-02-28T22:38:40.884Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 14,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
@@ -226,12 +175,11 @@
               "RelativeToolTip": "Data\\AppDbContext.cs",
               "ViewState": "AgIAACkAAAAAAAAAAAAQwDoAAABWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-22T23:59:22.977Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-22T23:59:22.977Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "ExercisesController.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Controllers\\ExercisesController.cs",
               "RelativeDocumentMoniker": "Controllers\\ExercisesController.cs",
@@ -239,12 +187,11 @@
               "RelativeToolTip": "Controllers\\ExercisesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T21:09:23.177Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T21:09:23.177Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 7,
               "Title": "WorkoutSessionDTO.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\DTOs\\WorkoutSessions\\WorkoutSessionDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\WorkoutSessions\\WorkoutSessionDTO.cs",
@@ -252,12 +199,11 @@
               "RelativeToolTip": "DTOs\\WorkoutSessions\\WorkoutSessionDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T21:40:17.756Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T21:40:17.756Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 13,
               "Title": "ExerciseDTO.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\DTOs\\Exercises\\ExerciseDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\Exercises\\ExerciseDTO.cs",
@@ -265,12 +211,11 @@
               "RelativeToolTip": "DTOs\\Exercises\\ExerciseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T20:41:32.788Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T20:41:32.788Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 15,
               "Title": "Exercise.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Models\\Exercise.cs",
               "RelativeDocumentMoniker": "Models\\Exercise.cs",
@@ -278,12 +223,11 @@
               "RelativeToolTip": "Models\\Exercise.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T20:35:23.858Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T20:35:23.858Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "WorkoutSession.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Models\\WorkoutSession.cs",
               "RelativeDocumentMoniker": "Models\\WorkoutSession.cs",
@@ -291,12 +235,11 @@
               "RelativeToolTip": "Models\\WorkoutSession.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T20:36:26.178Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T20:36:26.178Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 10,
               "Title": "RoutinesController.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Controllers\\RoutinesController.cs",
               "RelativeDocumentMoniker": "Controllers\\RoutinesController.cs",
@@ -304,12 +247,11 @@
               "RelativeToolTip": "Controllers\\RoutinesController.cs",
               "ViewState": "AgIAACYAAAAAAAAAAAAgwBkAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T20:43:11.182Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T20:43:11.182Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 8,
               "Title": "SessionExercise.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Models\\SessionExercise.cs",
               "RelativeDocumentMoniker": "Models\\SessionExercise.cs",
@@ -317,12 +259,11 @@
               "RelativeToolTip": "Models\\SessionExercise.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T20:31:31.592Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-28T20:31:31.592Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 9,
               "Title": "20260228205447_setnumber-unique.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Migrations\\20260228205447_setnumber-unique.cs",
               "RelativeDocumentMoniker": "Migrations\\20260228205447_setnumber-unique.cs",
@@ -330,12 +271,11 @@
               "RelativeToolTip": "Migrations\\20260228205447_setnumber-unique.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-28T20:54:47.954Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-28T20:54:47.954Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 11,
               "Title": "UpdateExerciseDTO.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\DTOs\\Exercises\\UpdateExerciseDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\Exercises\\UpdateExerciseDTO.cs",
@@ -343,12 +283,11 @@
               "RelativeToolTip": "DTOs\\Exercises\\UpdateExerciseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T20:42:10.25Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T20:42:10.25Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 12,
               "Title": "CreateExerciseDTO.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\DTOs\\Exercises\\CreateExerciseDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\Exercises\\CreateExerciseDTO.cs",
@@ -356,12 +295,11 @@
               "RelativeToolTip": "DTOs\\Exercises\\CreateExerciseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-26T20:41:50.563Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-26T20:41:50.563Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 19,
               "Title": "RegisterDTO.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\DTOs\\Auth\\RegisterDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\Auth\\RegisterDTO.cs",
@@ -369,12 +307,11 @@
               "RelativeToolTip": "DTOs\\Auth\\RegisterDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T20:04:32.481Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T20:04:32.481Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 18,
               "Title": "LoginDTO.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\DTOs\\Auth\\LoginDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\Auth\\LoginDTO.cs",
@@ -382,12 +319,11 @@
               "RelativeToolTip": "DTOs\\Auth\\LoginDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T20:04:35.124Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T20:04:35.124Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 17,
               "Title": "AuthReponseDTO.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\DTOs\\Auth\\AuthReponseDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\Auth\\AuthReponseDTO.cs",
@@ -395,12 +331,11 @@
               "RelativeToolTip": "DTOs\\Auth\\AuthReponseDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T20:04:37.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T20:04:37.148Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 16,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "Controllers\\AuthController.cs",
@@ -408,12 +343,11 @@
               "RelativeToolTip": "Controllers\\AuthController.cs",
               "ViewState": "AgIAABMAAAAAAAAAAAAQwDsAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-25T20:08:46.899Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-25T20:08:46.899Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 21,
               "Title": "20260223192748_InitialCreate.cs",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\Migrations\\20260223192748_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260223192748_InitialCreate.cs",
@@ -424,7 +358,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 20,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Prospi\\Documents\\Dev\\Projects\\FitTrack\\Backend\\FitTrack\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -432,8 +366,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-02-23T00:10:00.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-23T00:10:00.919Z"
             }
           ]
         }
