@@ -5,7 +5,8 @@ import logo from '../assets/logos/logo.png'
 export default function Navbar() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-
+  const isAdmin = user?.role === 'Admin'
+  
   const handleLogout = () => {
     logout()
     navigate('/login')
