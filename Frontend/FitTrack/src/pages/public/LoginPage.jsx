@@ -10,6 +10,7 @@ export default function LoginPage() {
     const [form, setForm] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const [longWaitMessage, setLongWaitMessage] = useState(false)
 
     const handleChange = (e) =>
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -18,6 +19,12 @@ export default function LoginPage() {
         e.preventDefault()
         setError('')
         setLoading(true)
+        setLongWaitMessage(false)
+
+        const timeoutId = setTimeout(() => {
+            setLongWaitMessage(true)
+        }, 5000)
+
         try {
             const res = await loginApi(form)
             login(res.data)         // store token + user in AuthContext + localStorage
@@ -25,7 +32,9 @@ export default function LoginPage() {
         } catch (err) {
             setError(err.responde?.data || 'Login failed. Please try again.')
         } finally {
+            clearTimeout(timeoutId)
             setLoading(false)
+            setLongWaitMessage(false)
         }
     }
 
@@ -38,6 +47,12 @@ export default function LoginPage() {
                 {error && (
                     <div className="bg-red-500/10 border border-red-500 text-red-400 px-4 py-3 rounded-lg mb-4 text-sm mt-4">
                         {error}
+                    </div>
+                )}
+
+                {longWaitMessage && (
+                    <div className="bg-yellow-500/10 border border-yellow-500 text-yellow-400 px-4 py-3 rounded-lg mb-4 text-sm mt-4">
+                        Sorry for the delay, the servers are warming up... this may take up to 1 minute.
                     </div>
                 )}
 
