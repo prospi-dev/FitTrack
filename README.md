@@ -6,6 +6,8 @@ The goal of this project is to build a structured, secure, and scalable fitness 
 
 FitTrack is a personal project built to practise full-stack development with React and .NET.
 
+Note: The live demo is currently unavailable because the free backend hosting plan expired. I am working on a solution to redeploy it soon!
+
 ## 📸 Screenshots
 
 <p align="center">
