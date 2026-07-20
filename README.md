@@ -1,12 +1,30 @@
 # FitTrack 🏋️
 
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black" alt="React 19">
+  <img src="https://img.shields.io/badge/.NET-9-512BD4?logo=dotnet&logoColor=white" alt=".NET 9">
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
+  <img src="https://img.shields.io/badge/status-portfolio%20project-orange" alt="Portfolio project">
+</p>
+
 **FitTrack** is a full-stack training management application that allows users to create workout routines, log training sessions, and track their strength progress over time.
 
-The goal of this project is to build a structured, secure, and scalable fitness tracking platform using modern web technologies.
+This is a **personal portfolio/learning project**, built to practise full-stack development with React and ASP.NET Core — from data modeling and authentication to deployment and, more recently, working through a self-run security audit (see [`SECURITY_NOTES.md`](./SECURITY_NOTES.md)). The goal is a structured, secure, and scalable fitness tracking platform, not a production product.
 
-FitTrack is a personal project built to practise full-stack development with React and .NET.
+> ⚠️ **Demo status:** The frontend is live on Netlify, but the backend API is currently offline (the free Render hosting plan expired), so login and data features won't work until it's redeployed. The screenshots below show the app fully functional.
 
-Note: The live demo is currently unavailable because the free backend hosting plan expired. I am working on a solution to redeploy it soon!
+## 📖 Table of Contents
+
+- [Screenshots](#-screenshots)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Database Architecture](#️-database-architecture)
+- [Project Structure](#-project-structure)
+- [Local Setup](#️-local-setup)
+- [Roadmap](#-roadmap)
+- [Future Improvements](#-future-improvements)
+- [Author](#-author)
 
 ## 📸 Screenshots
 
@@ -15,14 +33,14 @@ Note: The live demo is currently unavailable because the free backend hosting pl
   <img src="./docs/screenshots/02-dashboard.png" width="48%" alt="Dashboard and Routines">
 </p>
 <p align="center">
-  <img src="./docs/screenshots/05-workout-log.png" width="48%" alt="Routiones">
+  <img src="./docs/screenshots/05-workout-log.png" width="48%" alt="Workout Log">
   <img src="./docs/screenshots/04-workout-session.png" width="48%" alt="Workout Session">
 </p>
 <p align="center">
-  <img src="./docs/screenshots/03-routines.png" width="30%" alt="Workout-log">
+  <img src="./docs/screenshots/03-routines.png" width="30%" alt="Routines">
 </p>
 
-🔗 **Live demo:** [https://fittrack-prospi.netlify.app/](https://fittrack-prospi.netlify.app/)
+🔗 **Live demo (frontend only):** [https://fittrack-prospi.netlify.app/](https://fittrack-prospi.netlify.app/)
 
 ## 🚀 Features
 
@@ -83,15 +101,34 @@ Note: The live demo is currently unavailable because the free backend hosting pl
 - PostgreSQL
 - JWT Authentication
 - BCrypt
+- FluentValidation
 
 **Infrastructure**
 - Docker
-- Render (deployment)
+- Render (backend deployment)
+- Netlify (frontend deployment)
 
 ## 🗄️ Database Architecture
 
 <img src="./docs/diagrams/db-diagram.png" width="85%" alt="Database Diagram">
 The database is designed using a Code-First approach with Entity Framework Core
+
+## 📁 Project Structure
+
+```
+FitTrack/
+├── Backend/FitTrack/       # ASP.NET Core 9 Web API
+│   ├── Controllers/        # API endpoints
+│   ├── Services/           # Business logic (auth, JWT, etc.)
+│   ├── DTOs/                # Request/response contracts
+│   ├── Validators/         # FluentValidation rules
+│   ├── Models/              # EF Core entities
+│   ├── Data/                 # DbContext
+│   └── Migrations/         # EF Core migrations
+├── Frontend/FitTrack/      # React 19 + Vite SPA
+│   └── src/
+└── docs/                   # Screenshots and diagrams used in this README
+```
 
 ## 🛠️ Local Setup
 
@@ -173,6 +210,15 @@ Now you can open `http://localhost:5173` in your browser to see the app!
 
 ## 🔮 Future Improvements
 
+- Redeploy the backend on a stable host and keep the live demo fully functional
+- Automated tests (backend unit/integration tests, frontend component tests)
+- CI pipeline (build + lint + test on push)
 - Data visualization charts (progress over time)
 - Export training history
 - Personal records tracking
+
+## 👤 Author
+
+Built by [**prospi-dev**](https://github.com/prospi-dev) as a full-stack learning project.
+
+Feedback and suggestions are welcome — feel free to open an issue or a PR.
