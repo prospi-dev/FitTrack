@@ -1,27 +1,7 @@
 import { useEffect, useState } from 'react'
 import { getMyRequests, createRequest, deleteRequest } from '../../api/exerciseRequests'
-
-const MUSCLE_GROUPS = [
-  'Chest', 'Back', 'Lats', 'LowerBack',
-  'Shoulder', 'FrontDelts', 'SideDelts', 'RearDelts',
-  'Biceps', 'Triceps', 'Forearms',
-  'Abs', 'Obliques',
-  'Glutes', 'Quads', 'Hamstrings', 'Calves',
-  'FullBody', 'Cardio'
-]
-
-const statusBadge = (status) => {
-  const styles = {
-    Pending:  'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
-    Approved: 'bg-green-500/10 text-green-400 border-green-500/20',
-    Rejected: 'bg-red-500/10 text-red-400 border-red-500/20',
-  }
-  return (
-    <span className={`text-xs px-2 py-0.5 rounded-full border ${styles[status] ?? styles.Pending}`}>
-      {status}
-    </span>
-  )
-}
+import { MUSCLE_GROUPS } from '../../constants/muscleGroups'
+import StatusBadge from '../../components/StatusBadge'
 
 export default function ExerciseRequestsPage() {
   const [requests, setRequests] = useState([])
@@ -150,7 +130,7 @@ export default function ExerciseRequestsPage() {
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-1">
                   <span className="font-semibold text-white">{r.name}</span>
-                  {statusBadge(r.status)}
+                  <StatusBadge status={r.status} />
                 </div>
                 <p className="text-gray-500 text-sm">{r.muscleGroup}</p>
                 {r.description && <p className="text-gray-400 text-sm mt-1">{r.description}</p>}

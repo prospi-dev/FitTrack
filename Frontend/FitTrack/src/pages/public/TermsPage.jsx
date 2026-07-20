@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import Footer from '../../components/Footer'
+import Section from '../../components/Section'
 
 export default function TermsPage() {
   return (
@@ -80,14 +81,5 @@ export default function TermsPage() {
 
       <Footer />
     </div>
-  )
-}
-
-function Section({ title, children }) {
-  return (
-    <section>
-      <h2 className="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-white">{title}</h2>
-      <p className="text-gray-400 text-sm sm:text-base leading-relaxed">{children}</p>
-    </section>
   )
 }

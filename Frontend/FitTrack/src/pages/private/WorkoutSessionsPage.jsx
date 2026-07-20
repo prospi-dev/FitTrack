@@ -280,16 +280,6 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
         {/* Step 1 — pick routine */}
         {step === 1 && (
           <div className="overflow-y-auto flex-1 p-4 flex flex-col gap-2">
-          {/*<button
-              onClick={() => handleSelectRoutine(null)}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl border border-dashed border-gray-700 hover:border-blue-500 hover:bg-blue-500/5 text-left transition"
-            >
-              <div>
-                <p className="text-sm font-medium text-white">Free workout</p>
-                <p className="text-xs text-gray-500 mt-0.5">Log exercises without a routine</p>
-              </div>
-            </button> */}
-
             {routines.length === 0 && (
               <p className="text-gray-500 text-xs text-center py-2">No routines yet — create one in the Routines tab.</p>
             )}

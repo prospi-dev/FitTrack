@@ -2,28 +2,7 @@ import { useState, useEffect } from 'react'
 import { getExercises, createExercise, updateExercise, deleteExercise } from '../../api/exercises'
 import { useAuth } from '../../context/useAuth'
 import { useNavigate } from 'react-router-dom'
-
-const MUSCLE_GROUPS = [
-  'Chest',
-  'Back',
-  'Lats',
-  'LowerBack',
-  'Shoulder',
-  'FrontDelts',
-  'SideDelts',
-  'RearDelts',
-  'Biceps',
-  'Triceps',
-  'Forearms',
-  'Abs',
-  'Obliques',
-  'Glutes',
-  'Quads',
-  'Hamstrings',
-  'Calves',
-  'FullBody',
-  'Cardio',
-]
+import { MUSCLE_GROUPS } from '../../constants/muscleGroups'
 
 export default function ExercisesPage() {
   const { user } = useAuth()
