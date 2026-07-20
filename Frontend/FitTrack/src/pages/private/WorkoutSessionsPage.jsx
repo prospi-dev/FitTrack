@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getSessions, deleteSession, getSession, createSession } from '../../api/workoutSessions'
+import { getSessions, deleteSession, createSession } from '../../api/workoutSessions'
 import { getRoutines } from '../../api/routines'
 
 export default function WorkoutSessionsPage() {
@@ -9,9 +9,6 @@ export default function WorkoutSessionsPage() {
   const [error, setError] = useState(null)
   const [expandedId, setExpandedId] = useState(null)
   const [showLogger, setShowLogger] = useState(false)
-
-  // Modal state — null=closed, 'create'=new session, session object=edit session
-  const [sessionModal, setSessionModal] = useState(null)
 
   useEffect(() => {
     fetchAll()
@@ -406,7 +403,6 @@ function AddSetDropdown({ routine, sets, onAdd }) {
   const [freeName, setFreeName] = useState('')
 
   const handleRoutineAdd = (ex) => {
-    const count = sets.filter(s => s.exerciseId === ex.exerciseId).length
     onAdd(ex.exerciseId, ex.exerciseName)
     setOpen(false)
   }

@@ -30,7 +30,7 @@ export default function LoginPage() {
             login(res.data)         // store token + user in AuthContext + localStorage
             navigate('/dashboard')  // redirects to dashboard on success
         } catch (err) {
-            setError(err.responde?.data || 'Login failed. Please try again.')
+            setError(err.response?.data || 'Login failed. Please try again.')
         } finally {
             clearTimeout(timeoutId)
             setLoading(false)

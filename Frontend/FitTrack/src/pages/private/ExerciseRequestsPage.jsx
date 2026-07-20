@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useAuth } from '../../context/AuthContext'
 import { getMyRequests, createRequest, deleteRequest } from '../../api/exerciseRequests'
 
 const MUSCLE_GROUPS = [
@@ -25,7 +24,6 @@ const statusBadge = (status) => {
 }
 
 export default function ExerciseRequestsPage() {
-  const { user } = useAuth()
   const [requests, setRequests] = useState([])
   const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)

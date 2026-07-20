@@ -223,7 +223,7 @@ function ExerciseModal({ exercise, onClose, onSaved }) {
     try {
       if (isEdit) {
         // Send only changed fields — matches our UpdateExerciseDto
-        const res = await updateExercise(exercise.id, form)
+        await updateExercise(exercise.id, form)
         // PUT returns 204 (no body), so we reconstruct the updated object
         onSaved({ ...exercise, ...form }, false)
       } else {
