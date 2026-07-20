@@ -12,7 +12,7 @@
 
 This is a **personal portfolio/learning project**, built to practise full-stack development with React and ASP.NET Core — from data modeling and authentication to deployment and, more recently, working through a self-run security audit (see [`SECURITY_NOTES.md`](./SECURITY_NOTES.md)). The goal is a structured, secure, and scalable fitness tracking platform, not a production product.
 
-> ⚠️ **Demo status:** The frontend is live on Netlify, but the backend API is currently offline (the free Render hosting plan expired), so login and data features won't work until it's redeployed. The screenshots below show the app fully functional.
+> ✅ **Demo status:** Both the frontend (Netlify) and backend (Render) are live — the app is fully functional, including login and data features. Note the backend is on Render's free tier, so the first request after a period of inactivity may take up to a minute to respond while the instance wakes up.
 
 ## 📖 Table of Contents
 
@@ -40,7 +40,7 @@ This is a **personal portfolio/learning project**, built to practise full-stack 
   <img src="./docs/screenshots/03-routines.png" width="30%" alt="Routines">
 </p>
 
-🔗 **Live demo (frontend only):** [https://fittrack-prospi.netlify.app/](https://fittrack-prospi.netlify.app/)
+🔗 **Live demo:** [https://fittrack-prospi.netlify.app/](https://fittrack-prospi.netlify.app/)
 
 ## 🚀 Features
 
@@ -168,14 +168,18 @@ cd FitTrack
    ```bash
    openssl rand -base64 64
    ```
+
+   > If you don't know your local `postgres` user's password (or never set one), connect with `psql -U postgres` and run `ALTER USER postgres WITH PASSWORD 'yourpassword';`, then use that password above.
 3. Apply Entity Framework migrations to create the database:
    ```bash
    dotnet ef database update
    ```
+   (Optional — migrations also run automatically on startup, see `Program.cs`.)
 4. Run the API:
    ```bash
    dotnet run
    ```
+   By default this uses the `http` profile (`http://localhost:5111`). Note which profile/port you're on (`https` → `7239`, `http` → `5111`) — the frontend's `VITE_API_URL` must match it.
 
 ### 3. Frontend Setup (React + Vite)
 1. Open a new terminal and navigate to the frontend directory:
@@ -186,9 +190,9 @@ cd FitTrack
    ```bash
    npm install
    ```
-3. Copy `.env.example` to `.env` (or `.env.local`) in the root of the frontend folder and set your API base URL (if needed):
+3. Copy `.env.example` to `.env` (or `.env.local`) in the root of the frontend folder and set your API base URL to match the backend profile you ran in step 2 (`https` → `7239`, `http` → `5111`):
    ```env
-   VITE_API_URL=https://localhost:7239/api
+   VITE_API_URL=http://localhost:5111/api
    ```
 4. Start the development server:
    ```bash
@@ -210,8 +214,7 @@ Now you can open `http://localhost:5173` in your browser to see the app!
 
 ## 🔮 Future Improvements
 
-- Redeploy the backend on a stable host and keep the live demo fully functional
-- Automated tests (backend unit/integration tests, frontend component tests)
+- Expand frontend test coverage (vitest + React Testing Library are set up; core auth/routing paths are covered) and add backend unit/integration tests
 - CI pipeline (build + lint + test on push)
 - Data visualization charts (progress over time)
 - Export training history

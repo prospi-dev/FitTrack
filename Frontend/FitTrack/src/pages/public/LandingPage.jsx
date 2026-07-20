@@ -6,11 +6,6 @@ export default function LandingPage() {
     return (
         <div className="min-h-screen bg-gray-950 text-white flex flex-col">
 
-            {/* Maintenance Banner */}
-            <div className="bg-yellow-600/20 border-b border-yellow-600/50 text-yellow-200 text-sm text-center py-3 px-4">
-                <strong>Notice:</strong> We are currently experiencing issues with our backend hosting provider. Some features may be unavailable while we work on a fix. Thank you for your patience!
-            </div>
-
             {/* Navbar */}
             <nav className="flex items-center justify-between px-6 py-4 border-b border-gray-800">
                 <img src={logo} alt="FitTrack" className="w-15" />
