@@ -200,8 +200,8 @@ public class RoutinesController : ControllerBase
         if (routine is null)
             return NotFound($"Routine with ID {routineId} not found.");
 
-        var exerciseExists = await _db.Exercises.AnyAsync(e => e.Id == dto.ExerciseId);
-        if(!exerciseExists)
+        var exercise = await _db.Exercises.FirstOrDefaultAsync(e => e.Id == dto.ExerciseId);
+        if (exercise is null)
             return NotFound($"Exercise with ID {dto.ExerciseId} not found.");
 
         var routineExercise = new RoutineExercise
@@ -217,7 +217,21 @@ public class RoutinesController : ControllerBase
         _db.RoutineExercises.Add(routineExercise);
         await _db.SaveChangesAsync();
 
-        return StatusCode(201); // Created
+        // Return the persisted resource (including its real DB-generated id)
+        // so the frontend doesn't need to invent a client-side temp id.
+        var result = new RoutineExerciseDTO
+        {
+            Id = routineExercise.Id,
+            ExerciseId = routineExercise.ExerciseId,
+            ExerciseName = exercise.Name,
+            MuscleGroup = string.Join(", ", exercise.MuscleGroups.Select(m => m.ToString())),
+            Order = routineExercise.Order,
+            Sets = routineExercise.Sets,
+            Reps = routineExercise.Reps,
+            WeightKg = routineExercise.WeightKg
+        };
+
+        return StatusCode(201, result); // Created
     }
 
     // PUT api/routines/{routineId}/exercises/{exerciseEntryId} 

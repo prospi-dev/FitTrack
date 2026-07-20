@@ -2,7 +2,11 @@ using System.Text;
 using FitTrack.Data;
 using FitTrack.Models;
 using FitTrack.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -30,6 +34,16 @@ builder.Services.AddControllers()
     });
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApi();
+
+// RFC7807 ProblemDetails support, used by the global exception handler below
+// and automatically by [ApiController] model-validation failures.
+builder.Services.AddProblemDetails();
+
+// FluentValidation — auto-validates action parameters against any
+// registered AbstractValidator<T> and short-circuits with a 400
+// ValidationProblemDetails response (via ModelState) on failure.
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -146,6 +160,39 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
+
+// Global exception handler — catches any unhandled exception and returns an
+// RFC7807 ProblemDetails response instead of a raw 500 / stack trace.
+// In Development we include exception details to aid debugging; in all
+// other environments the response body stays generic so nothing about the
+// exception (message, stack trace, type) leaks to the client.
+var isDevelopment = app.Environment.IsDevelopment();
+app.UseExceptionHandler(exceptionHandlerApp =>
+{
+    exceptionHandlerApp.Run(async context =>
+    {
+        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+        var exception = exceptionHandlerFeature?.Error;
+
+        var problemDetails = new ProblemDetails
+        {
+            Status = StatusCodes.Status500InternalServerError,
+            Title = "An unexpected error occurred.",
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
+            Instance = context.Request.Path
+        };
+
+        if (isDevelopment && exception is not null)
+        {
+            problemDetails.Detail = exception.ToString();
+        }
+
+        context.Response.StatusCode = problemDetails.Status.Value;
+        context.Response.ContentType = "application/problem+json";
+        await context.Response.WriteAsJsonAsync(problemDetails);
+    });
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

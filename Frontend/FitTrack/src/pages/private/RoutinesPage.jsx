@@ -345,17 +345,18 @@ function ExercisePickerModal({ exercises, routineId, currentExercises, onClose, 
         reps: parseInt(form.reps),
         weightKg: form.weightKg ? parseFloat(form.weightKg) : null,
       }
-      await addExerciseToRoutine(routineId, payload)
-      // Build the new entry to update local state without refetching
+      const response = await addExerciseToRoutine(routineId, payload)
+      // Use the persisted entry (with its real DB-generated id) returned by
+      // the backend to update local state without refetching.
       const newEntry = {
-        id: Date.now(), // temp id — will be overwritten on next fetch
-        exerciseId: selected.id,
-        exerciseName: selected.name,
-        muscleGroup: selected.muscleGroups.join(', '),
-        order: payload.order,
-        sets: payload.sets,
-        reps: payload.reps,
-        weightKg: payload.weightKg,
+        id: response.data.id,
+        exerciseId: response.data.exerciseId,
+        exerciseName: response.data.exerciseName,
+        muscleGroup: response.data.muscleGroup,
+        order: response.data.order,
+        sets: response.data.sets,
+        reps: response.data.reps,
+        weightKg: response.data.weightKg,
       }
       onAdded(routineId, newEntry)
       onClose()

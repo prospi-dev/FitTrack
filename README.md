@@ -113,14 +113,23 @@ cd FitTrack
    ```bash
    cd Backend/FitTrack
    ```
-2. Update the `appsettings.json` or `appsettings.Development.json` with your PostgreSQL connection string and JWT Secret:
+2. Copy `appsettings.Development.json.example` to `appsettings.Development.json` (this file is gitignored and never committed) and fill in your PostgreSQL connection string and JWT key:
+   ```bash
+   cp appsettings.Development.json.example appsettings.Development.json
+   ```
    ```json
    "ConnectionStrings": {
-     "DefaultConnection": "Host=localhost;Database=FitTrackDB;Username=postgres;Password=yourpassword"
+     "DefaultConnection": "Host=localhost;Database=FitTrackDb;Username=postgres;Password=yourpassword"
    },
-   "JwtSettings": {
-     "Secret": "your_super_secret_jwt_key_here"
+   "Jwt": {
+     "Key": "a-strong-random-secret-at-least-64-characters-long",
+     "Issuer": "FitTrackApi",
+     "Audience": "FitTrackClient"
    }
+   ```
+   Generate a strong random key, e.g.:
+   ```bash
+   openssl rand -base64 64
    ```
 3. Apply Entity Framework migrations to create the database:
    ```bash
@@ -140,9 +149,9 @@ cd FitTrack
    ```bash
    npm install
    ```
-3. Create a `.env` file in the root of the frontend folder and set your API base URL (if needed):
+3. Copy `.env.example` to `.env` (or `.env.local`) in the root of the frontend folder and set your API base URL (if needed):
    ```env
-   VITE_API_BASE_URL=https://localhost:5001/api
+   VITE_API_URL=https://localhost:7239/api
    ```
 4. Start the development server:
    ```bash
