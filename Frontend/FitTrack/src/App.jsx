@@ -42,7 +42,7 @@ export default function App() {
         <ProtectedRoute><Layout><ExerciseRequestsPage /></Layout></ProtectedRoute>
       } />
       <Route path="/admin/requests" element={
-        <ProtectedRoute><Layout><AdminRequestsPage /></Layout></ProtectedRoute>
+        <ProtectedRoute role="Admin"><Layout><AdminRequestsPage /></Layout></ProtectedRoute>
       } />
 
       {/* 404 */}
