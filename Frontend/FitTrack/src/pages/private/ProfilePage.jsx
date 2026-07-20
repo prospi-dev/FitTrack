@@ -87,7 +87,9 @@ export default function ProfilePage() {
       <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-6">
         <h2 className="text-lg font-semibold mb-4">Display Name</h2>
         <form onSubmit={handleUpdateName} className="space-y-4">
+          <label htmlFor="displayName" className="sr-only">Display name</label>
           <input
+            id="displayName"
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
@@ -114,7 +116,9 @@ export default function ProfilePage() {
       <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 mb-6">
         <h2 className="text-lg font-semibold mb-4">Change Password</h2>
         <form onSubmit={handleChangePassword} className="space-y-4">
+          <label htmlFor="currentPassword" className="sr-only">Current password</label>
           <input
+            id="currentPassword"
             type="password"
             value={currentPassword}
             onChange={e => setCurrentPassword(e.target.value)}
@@ -122,7 +126,9 @@ export default function ProfilePage() {
             placeholder="Current password"
             required
           />
+          <label htmlFor="newPassword" className="sr-only">New password</label>
           <input
+            id="newPassword"
             type="password"
             value={newPassword}
             onChange={e => setNewPassword(e.target.value)}
@@ -130,7 +136,9 @@ export default function ProfilePage() {
             placeholder="New password"
             required
           />
+          <label htmlFor="confirmPassword" className="sr-only">Confirm new password</label>
           <input
+            id="confirmPassword"
             type="password"
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}

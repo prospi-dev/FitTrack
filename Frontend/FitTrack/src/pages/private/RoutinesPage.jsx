@@ -224,6 +224,7 @@ function RoutineCard({ routine, isExpanded, onToggle, onEdit, onDelete, onAddExe
                   </button>
                   <button
                     onClick={() => onRemoveEntry(entry.id)}
+                    aria-label={`Remove ${entry.exerciseName}`}
                     className="text-xs text-red-400 hover:text-white bg-gray-700 hover:bg-red-600 px-2 py-1 rounded-lg transition"
                   >
                     ✕

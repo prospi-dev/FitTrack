@@ -269,7 +269,7 @@ function ExerciseModal({ exercise, onClose, onSaved }) {
                     type="checkbox"
                     checked={form.muscleGroups.includes(mg)}
                     onChange={() => toggleMuscleGroup(mg)}
-                    className="hidden" // hide the native checkbox — the whole label is the toggle
+                    className="sr-only" // visually hidden, but stays in the a11y tree — the whole label is the toggle
                   />
                   {mg}
                 </label>

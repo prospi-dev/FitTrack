@@ -274,7 +274,7 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
               {step === 1 ? 'Choose Routine' : selectedRoutine?.name ?? 'Free Workout'}
             </h2>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white transition">✕</button>
+          <button onClick={onClose} aria-label="Close" className="text-gray-400 hover:text-white transition">✕</button>
         </div>
 
         {/* Step 1 — pick routine */}
@@ -334,7 +334,7 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
                       {set.exerciseName}
                       <span className="text-gray-500 ml-2 font-normal text-xs">Set {set.setNumber}</span>
                     </p>
-                    <button onClick={() => removeSet(index)} className="text-xs text-gray-500 hover:text-red-400 transition">✕</button>
+                    <button onClick={() => removeSet(index)} aria-label={`Remove set ${set.setNumber}`} className="text-xs text-gray-500 hover:text-red-400 transition">✕</button>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
