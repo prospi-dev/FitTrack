@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/useAuth'
 import { updateName, changePassword, deleteAccount } from '../../api/profile'
 
 export default function ProfilePage() {

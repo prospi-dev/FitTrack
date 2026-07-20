@@ -1,6 +1,5 @@
-import { createContext, useContext, useState, useEffect } from "react"
-
-const AuthContext = createContext(null)
+import { useState, useEffect } from "react"
+import { AuthContext } from "./auth-context"
 
 // Decode the JWT payload and check if it's expired
 function isTokenExpired(token) {
@@ -31,17 +30,6 @@ export function AuthProvider({ children }) {
     return stored ? JSON.parse(stored) : null
   })
 
-  // Periodically check if the token has expired (every minute)
-  useEffect(() => {
-    if (!token) return
-    const interval = setInterval(() => {
-      if (isTokenExpired(token)) {
-        logout()
-      }
-    }, 60 * 1000)
-    return () => clearInterval(interval)
-  }, [token])
-
   const login = (data) => {
     localStorage.setItem('token', data.token)
     localStorage.setItem('user', JSON.stringify({
@@ -60,13 +48,20 @@ export function AuthProvider({ children }) {
     setUser(null)
   }
 
+  // Periodically check if the token has expired (every minute)
+  useEffect(() => {
+    if (!token) return
+    const interval = setInterval(() => {
+      if (isTokenExpired(token)) {
+        logout()
+      }
+    }, 60 * 1000)
+    return () => clearInterval(interval)
+  }, [token])
+
   return (
     <AuthContext.Provider value={{ token, user, login, logout, isTokenExpired }}>
       {children}
     </AuthContext.Provider>
   )
-}
-
-export function useAuth() {
-  return useContext(AuthContext)
 }

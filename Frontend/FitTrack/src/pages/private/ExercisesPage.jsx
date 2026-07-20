@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getExercises, createExercise, updateExercise, deleteExercise } from '../../api/exercises'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/useAuth'
 import { useNavigate } from 'react-router-dom'
 
 const MUSCLE_GROUPS = [

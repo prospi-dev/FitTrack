@@ -1,5 +1,5 @@
 import { NavLink, useNavigate, Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/useAuth'
 import logo from '../assets/logos/logo.png'
 
 export default function Navbar() {
