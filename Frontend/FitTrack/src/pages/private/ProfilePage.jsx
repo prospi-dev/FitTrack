@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/useAuth'
 import { updateName, changePassword, deleteAccount } from '../../api/profile'
+import Button from '../../components/Button'
 
 export default function ProfilePage() {
   const { user, login, logout } = useAuth()
@@ -102,13 +103,9 @@ export default function ProfilePage() {
               {nameMsg.text}
             </p>
           )}
-          <button
-            type="submit"
-            disabled={nameLoading}
-            className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm transition cursor-pointer"
-          >
+          <Button type="submit" disabled={nameLoading} size="form">
             {nameLoading ? 'Saving...' : 'Save Name'}
-          </button>
+          </Button>
         </form>
       </div>
 
@@ -151,13 +148,9 @@ export default function ProfilePage() {
               {passwordMsg.text}
             </p>
           )}
-          <button
-            type="submit"
-            disabled={passwordLoading}
-            className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white px-4 py-2 rounded-lg text-sm transition cursor-pointer"
-          >
+          <Button type="submit" disabled={passwordLoading} size="form">
             {passwordLoading ? 'Updating...' : 'Update Password'}
-          </button>
+          </Button>
         </form>
       </div>
 

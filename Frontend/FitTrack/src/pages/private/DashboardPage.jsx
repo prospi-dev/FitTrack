@@ -1,55 +1,44 @@
 import { useAuth } from '../../context/useAuth'
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { getRoutines } from '../../api/routines'
 import { getSessions } from '../../api/workoutSessions'
+import { useFetch } from '../../hooks/useFetch'
+
+async function fetchStats() {
+  const [sessionsRes, routinesRes] = await Promise.all([
+    getSessions(),
+    getRoutines(),
+  ])
+
+  const sessions = sessionsRes.data
+  const routines = routinesRes.data
+
+  const now = new Date()
+  const weekAgo = new Date(now)
+  weekAgo.setDate(weekAgo.getDate() - 7)
+
+  const sessionsThisWeek = sessions.filter(
+    s => new Date(s.date) >= weekAgo
+  ).length
+
+  const sortedSessions = [...sessions].sort((a, b) => new Date(b.date) - new Date(a.date))
+  const lastSession = sortedSessions.length > 0
+    ? new Date(sortedSessions[0].date).toLocaleDateString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric'
+      })
+    : null
+
+  return {
+    totalSessions: sessions.length,
+    totalRoutines: routines.length,
+    sessionsThisWeek,
+    lastSession,
+  }
+}
 
 export default function DashboardPage() {
   const { user } = useAuth()
-  const [stats, setStats] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const [sessionsRes, routinesRes] = await Promise.all([
-          getSessions(),
-          getRoutines(),
-        ])
-
-        const sessions = sessionsRes.data
-        const routines = routinesRes.data
-
-        const now = new Date()
-        const weekAgo = new Date(now)
-        weekAgo.setDate(weekAgo.getDate() - 7)
-
-        const sessionsThisWeek = sessions.filter(
-          s => new Date(s.date) >= weekAgo
-        ).length
-
-        const sortedSessions = [...sessions].sort((a, b) => new Date(b.date) - new Date(a.date))
-        const lastSession = sortedSessions.length > 0
-          ? new Date(sortedSessions[0].date).toLocaleDateString('en-GB', {
-              day: 'numeric', month: 'short', year: 'numeric'
-            })
-          : null
-
-        setStats({
-          totalSessions: sessions.length,
-          totalRoutines: routines.length,
-          sessionsThisWeek,
-          lastSession,
-        })
-      } catch (err) {
-        console.error('Failed to load stats', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchStats()
-  }, [])
+  const { data: stats, loading } = useFetch(fetchStats, [])
 
   const isNewUser = !loading && stats?.totalSessions === 0 && stats?.totalRoutines === 0
 

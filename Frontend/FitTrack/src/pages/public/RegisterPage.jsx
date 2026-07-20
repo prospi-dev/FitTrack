@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { register as registerApi } from '../../api/auth'
 import { useAuth } from '../../context/useAuth'
+import Button from '../../components/Button'
 
 export default function RegisterPage() {
   const { login } = useAuth()
@@ -81,13 +82,9 @@ export default function RegisterPage() {
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-2.5 rounded-lg transition"
-          >
+          <Button type="submit" disabled={loading} size="full">
             {loading ? 'Creating account...' : 'Create account'}
-          </button>
+          </Button>
         </form>
 
         <p className="text-gray-400 text-sm text-center mt-6">

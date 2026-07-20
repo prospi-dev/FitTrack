@@ -1,33 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { getSessions, deleteSession, createSession } from '../../api/workoutSessions'
 import { getRoutines } from '../../api/routines'
+import { useFetch } from '../../hooks/useFetch'
+import Card from '../../components/Card'
+import Button from '../../components/Button'
 
 export default function WorkoutSessionsPage() {
-  const [sessions, setSessions] = useState([])
-  const [routines, setRoutines] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const { data, loading, error, setData } = useFetch(
+    () => Promise.all([getSessions(), getRoutines()])
+      .then(([sessionsRes, routinesRes]) => ({ sessions: sessionsRes.data, routines: routinesRes.data })),
+    [], { sessions: [], routines: [] }
+  )
+  const sessions = data.sessions
+  const routines = data.routines
+  const setSessions = (updater) => setData(prev => ({
+    ...prev,
+    sessions: typeof updater === 'function' ? updater(prev.sessions) : updater,
+  }))
   const [expandedId, setExpandedId] = useState(null)
   const [showLogger, setShowLogger] = useState(false)
-
-  useEffect(() => {
-    fetchAll()
-  }, [])
-
-  const fetchAll = async () => {
-    try {
-      const [sessionsRes, routinesRes] = await Promise.all([
-        getSessions(),
-        getRoutines(),
-      ])
-      setSessions(sessionsRes.data)
-      setRoutines(routinesRes.data)
-    } catch {
-      setError('Failed to load data.')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleDeleteSession = async (id) => {
     if (!confirm('Delete this session?')) return
@@ -45,16 +36,13 @@ export default function WorkoutSessionsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">Workout Sessions</h1>
-        <button
-          onClick={() => setShowLogger(true)}
-          className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
-        >
+        <Button onClick={() => setShowLogger(true)}>
           + New
-        </button>
+        </Button>
       </div>
 
       {loading && <p className="text-gray-400 text-sm">Loading...</p>}
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-red-400 text-sm">Failed to load data.</p>}
 
       {!loading && !error && (
         <>
@@ -111,7 +99,7 @@ function SessionCard({ session, onToggle, onDelete, isExpanded }) {
   })
 
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+    <Card padding="" className="overflow-hidden">
       {/* Card header - always visible */}
       <div className="flex items-center justify-between px-4 py-3 gap-3">
         <button
@@ -128,12 +116,9 @@ function SessionCard({ session, onToggle, onDelete, isExpanded }) {
         </button>
 
         <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={onDelete}
-            className="text-xs text-red-400 hover:text-white bg-gray-800 hover:bg-red-600 px-3 py-1.5 rounded-lg transition"
-          >
+          <Button onClick={onDelete} variant="danger" size="sm">
             Delete
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -165,7 +150,7 @@ function SessionCard({ session, onToggle, onDelete, isExpanded }) {
           )}
         </div>
       )}
-    </div>
+    </Card>
   )
 }
 
@@ -369,16 +354,16 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
 
             {/* Footer */}
             <div className="p-4 border-t border-gray-800 shrink-0 flex gap-3">
-              <button onClick={onClose} className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium py-2.5 rounded-lg transition">
+              <Button onClick={onClose} variant="secondary" size="modal">
                 Cancel
-              </button>
-              <button
+              </Button>
+              <Button
                 onClick={handleSubmit}
                 disabled={loading || sets.length === 0}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition"
+                size="modal"
               >
                 {loading ? 'Saving...' : 'Save session'}
-              </button>
+              </Button>
             </div>
           </>
         )}

@@ -1,25 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { getAllRequests, reviewRequest } from '../../api/exerciseRequests'
 import StatusBadge from '../../components/StatusBadge'
+import Card from '../../components/Card'
+import { useFetch } from '../../hooks/useFetch'
 
 export default function AdminRequestsPage() {
-  const [requests, setRequests] = useState([])
-  const [loading, setLoading] = useState(true)
+  const { data: requests, loading, setData: setRequests } = useFetch(
+    () => getAllRequests().then(res => res.data), [], []
+  )
   const [filter, setFilter] = useState('Pending')
   const [actionLoading, setActionLoading] = useState(null)
-
-  const fetchRequests = async () => {
-    try {
-      const res = await getAllRequests()
-      setRequests(res.data)
-    } catch (err) {
-      console.error(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => { fetchRequests() }, [])
 
   const handleReview = async (id, status) => {
     setActionLoading(id + status)
@@ -77,7 +67,7 @@ export default function AdminRequestsPage() {
       ) : (
         <div className="space-y-3">
           {filtered.map(r => (
-            <div key={r.id} className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+            <Card key={r.id}>
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-1">
@@ -113,7 +103,7 @@ export default function AdminRequestsPage() {
                   </div>
                 )}
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       )}

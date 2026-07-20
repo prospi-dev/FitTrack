@@ -1,37 +1,24 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { getExercises, createExercise, updateExercise, deleteExercise } from '../../api/exercises'
 import { useAuth } from '../../context/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { MUSCLE_GROUPS } from '../../constants/muscleGroups'
+import { useFetch } from '../../hooks/useFetch'
+import Card from '../../components/Card'
+import Button from '../../components/Button'
 
 export default function ExercisesPage() {
   const { user } = useAuth()
   const isAdmin = user?.role === 'Admin'
-  const [exercises, setExercises] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  // getExercises() is a public endpoint — no token needed,
+  // but axiosInstance sends it anyway if present (no harm done)
+  const { data: exercises, loading, error, setData: setExercises } = useFetch(
+    () => getExercises().then(res => res.data), [], []
+  )
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
   // Modal state — null = closed, 'create' or the exercise object = open
   const [modal, setModal] = useState(null)
-
-  // ─── Fetch exercises on mount ────────────────────────────────────────────
-  // getExercises() is a public endpoint — no token needed,
-  // but axiosInstance sends it anyway if present (no harm done)
-  useEffect(() => {
-    fetchExercises()
-  }, [])
-
-  const fetchExercises = async () => {
-    try {
-      const res = await getExercises()
-      setExercises(res.data)
-    } catch {
-      setError('Failed to load exercises.')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   // ─── Filter by search ────────────────────────────────────────────────────
   // We filter client-side since the full catalogue is small.
@@ -58,19 +45,13 @@ export default function ExercisesPage() {
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">Exercises</h1>
         {isAdmin ? (
-          <button
-            onClick={() => setModal('create')}
-            className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
-          >
+          <Button onClick={() => setModal('create')}>
             + Add
-          </button>
+          </Button>
         ) :
-          <button
-            onClick={() => navigate('/requests')}
-            className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
-          >
+          <Button onClick={() => navigate('/requests')}>
             Request Addition
-          </button>
+          </Button>
         }
       </div>
 
@@ -85,7 +66,7 @@ export default function ExercisesPage() {
 
       {/* States */}
       {loading && <p className="text-gray-400 text-sm">Loading...</p>}
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-red-400 text-sm">Failed to load exercises.</p>}
 
       {/* Exercise list */}
       {!loading && !error && (
@@ -132,7 +113,7 @@ export default function ExercisesPage() {
 // Admin users see edit + delete buttons.
 function ExerciseCard({ exercise, isAdmin, onEdit, onDelete }) {
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl px-4 py-3 flex items-center justify-between gap-3">
+    <Card padding="px-4 py-3" className="flex items-center justify-between gap-3">
       <div className="min-w-0">
         <p className="font-medium text-white truncate">{exercise.name}</p>
         <div className="flex flex-wrap gap-1 mt-1">
@@ -149,21 +130,15 @@ function ExerciseCard({ exercise, isAdmin, onEdit, onDelete }) {
 
       {isAdmin && (
         <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={onEdit}
-            className="text-xs text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded-lg transition"
-          >
+          <Button onClick={onEdit} variant="secondary" size="sm">
             Edit
-          </button>
-          <button
-            onClick={onDelete}
-            className="text-xs text-red-400 hover:text-white bg-gray-800 hover:bg-red-600 px-3 py-1.5 rounded-lg transition"
-          >
+          </Button>
+          <Button onClick={onDelete} variant="danger" size="sm">
             Delete
-          </button>
+          </Button>
         </div>
       )}
-    </div>
+    </Card>
   )
 }
 
@@ -291,20 +266,12 @@ function ExerciseModal({ exercise, onClose, onSaved }) {
           </div>
 
           <div className="flex gap-3 pt-1">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium py-2.5 rounded-lg transition"
-            >
+            <Button type="button" onClick={onClose} variant="secondary" size="modal">
               Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={loading || form.muscleGroups.length === 0}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition"
-            >
+            </Button>
+            <Button type="submit" disabled={loading || form.muscleGroups.length === 0} size="modal">
               {loading ? 'Saving...' : isEdit ? 'Save changes' : 'Create'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

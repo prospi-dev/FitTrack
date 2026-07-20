@@ -1,15 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   getRoutines, createRoutine, updateRoutine, deleteRoutine,
   addExerciseToRoutine, updateRoutineExercise, removeExerciseFromRoutine
 } from '../../api/routines'
 import { getExercises } from '../../api/exercises'
+import { useFetch } from '../../hooks/useFetch'
+import Card from '../../components/Card'
+import Button from '../../components/Button'
 
 export default function RoutinesPage() {
-  const [routines, setRoutines] = useState([])
-  const [exercises, setExercises] = useState([]) // full catalogue for the picker
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const { data, loading, error, setData } = useFetch(
+    () => Promise.all([getRoutines(), getExercises()])
+      .then(([routinesRes, exercisesRes]) => ({ routines: routinesRes.data, exercises: exercisesRes.data })),
+    [], { routines: [], exercises: [] }
+  )
+  const routines = data.routines
+  const exercises = data.exercises // full catalogue for the picker
+  const setRoutines = (updater) => setData(prev => ({
+    ...prev,
+    routines: typeof updater === 'function' ? updater(prev.routines) : updater,
+  }))
 
   // Which routine card is expanded (showing its exercises)
   const [expandedId, setExpandedId] = useState(null)
@@ -22,25 +32,6 @@ export default function RoutinesPage() {
 
   // Edit exercise entry modal — null=closed, entry object=open
   const [editEntry, setEditEntry] = useState(null)
-
-  useEffect(() => {
-    fetchAll()
-  }, [])
-
-  const fetchAll = async () => {
-    try {
-      const [routinesRes, exercisesRes] = await Promise.all([
-        getRoutines(),
-        getExercises(),
-      ])
-      setRoutines(routinesRes.data)
-      setExercises(exercisesRes.data)
-    } catch {
-      setError('Failed to load data.')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleDeleteRoutine = async (id) => {
     if (!confirm('Delete this routine?')) return
@@ -71,16 +62,13 @@ export default function RoutinesPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold">Routines</h1>
-        <button
-          onClick={() => setRoutineModal('create')}
-          className="bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
-        >
+        <Button onClick={() => setRoutineModal('create')}>
           + New
-        </button>
+        </Button>
       </div>
 
       {loading && <p className="text-gray-400 text-sm">Loading...</p>}
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+      {error && <p className="text-red-400 text-sm">Failed to load data.</p>}
 
       {!loading && !error && (
         <>
@@ -161,7 +149,7 @@ export default function RoutinesPage() {
 // Routine Card 
 function RoutineCard({ routine, isExpanded, onToggle, onEdit, onDelete, onAddExercise, onEditEntry, onRemoveEntry }) {
   return (
-    <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+    <Card padding="" className="overflow-hidden">
       {/* Card header — always visible */}
       <div className="flex items-center justify-between px-4 py-3 gap-3">
         <button
@@ -182,18 +170,12 @@ function RoutineCard({ routine, isExpanded, onToggle, onEdit, onDelete, onAddExe
         </button>
 
         <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={onEdit}
-            className="text-xs text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 px-3 py-1.5 rounded-lg transition"
-          >
+          <Button onClick={onEdit} variant="secondary" size="sm">
             Edit
-          </button>
-          <button
-            onClick={onDelete}
-            className="text-xs text-red-400 hover:text-white bg-gray-800 hover:bg-red-600 px-3 py-1.5 rounded-lg transition"
-          >
+          </Button>
+          <Button onClick={onDelete} variant="danger" size="sm">
             Delete
-          </button>
+          </Button>
         </div>
       </div>
 
@@ -243,11 +225,11 @@ function RoutineCard({ routine, isExpanded, onToggle, onEdit, onDelete, onAddExe
           </button>
         </div>
       )}
-    </div>
+    </Card>
   )
 }
 
-// Routine Modal (Create / Edit) 
+// Routine Modal (Create / Edit)
 function RoutineModal({ routine, onClose, onSaved }) {
   const isEdit = !!routine
   const [form, setForm] = useState({
@@ -306,10 +288,10 @@ function RoutineModal({ routine, onClose, onSaved }) {
             />
           </div>
           <div className="flex gap-3 pt-1">
-            <button type="button" onClick={onClose} className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium py-2.5 rounded-lg transition">Cancel</button>
-            <button type="submit" disabled={loading} className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition">
+            <Button type="button" onClick={onClose} variant="secondary" size="modal">Cancel</Button>
+            <Button type="submit" disabled={loading} size="modal">
               {loading ? 'Saving...' : isEdit ? 'Save changes' : 'Create'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
@@ -465,10 +447,10 @@ function ExercisePickerModal({ exercises, routineId, currentExercises, onClose, 
             </div>
 
             <div className="flex gap-3">
-              <button type="button" onClick={onClose} className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium py-2.5 rounded-lg transition">Cancel</button>
-              <button type="submit" disabled={loading} className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition">
+              <Button type="button" onClick={onClose} variant="secondary" size="modal">Cancel</Button>
+              <Button type="submit" disabled={loading} size="modal">
                 {loading ? 'Adding...' : 'Add'}
-              </button>
+              </Button>
             </div>
           </form>
         )}
@@ -549,10 +531,10 @@ function EditEntryModal({ entry, onClose, onSaved }) {
             />
           </div>
           <div className="flex gap-3 pt-1">
-            <button type="button" onClick={onClose} className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 font-medium py-2.5 rounded-lg transition">Cancel</button>
-            <button type="submit" disabled={loading} className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg transition">
+            <Button type="button" onClick={onClose} variant="secondary" size="modal">Cancel</Button>
+            <Button type="submit" disabled={loading} size="modal">
               {loading ? 'Saving...' : 'Save changes'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
