@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { login as loginApi } from '../../api/auth'
+import errorMessage from '../../api/errorMessage'
 import { useAuth } from '../../context/useAuth'
 import Button from '../../components/Button'
 
@@ -31,7 +32,7 @@ export default function LoginPage() {
       login(res.data)         // store token + user in AuthContext + localStorage
       navigate('/dashboard')  // redirects to dashboard on success
     } catch (err) {
-      setError(err.response?.data || 'Login failed. Please try again.')
+      setError(errorMessage(err, 'Login failed. Please try again.'))
     } finally {
       clearTimeout(timeoutId)
       setLoading(false)

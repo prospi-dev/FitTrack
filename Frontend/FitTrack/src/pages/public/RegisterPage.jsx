@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { register as registerApi } from '../../api/auth'
+import errorMessage from '../../api/errorMessage'
 import { useAuth } from '../../context/useAuth'
 import Button from '../../components/Button'
 
@@ -24,7 +25,7 @@ export default function RegisterPage() {
       login(res.data)        // register returns a token too — log straight in
       navigate('/dashboard')
     } catch (err) {
-      setError(err.response?.data || 'Registration failed. Please try again.')
+      setError(errorMessage(err, 'Registration failed. Please try again.'))
     } finally {
       setLoading(false)
     }
