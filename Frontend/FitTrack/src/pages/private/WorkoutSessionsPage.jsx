@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getSessions, deleteSession, createSession } from '../../api/workoutSessions'
+import { getSessions, deleteSession, createSession, updateSession } from '../../api/workoutSessions'
 import { getRoutines } from '../../api/routines'
 import { useFetch } from '../../hooks/useFetch'
 import Card from '../../components/Card'
@@ -19,6 +19,9 @@ export default function WorkoutSessionsPage() {
   }))
   const [expandedId, setExpandedId] = useState(null)
   const [showLogger, setShowLogger] = useState(false)
+
+  // Session being corrected — null means the logger opens in "new session" mode
+  const [editSession, setEditSession] = useState(null)
 
   const handleDeleteSession = async (id) => {
     if (!confirm('Delete this session?')) return
@@ -57,6 +60,7 @@ export default function WorkoutSessionsPage() {
                   isExpanded={expandedId === session.id}
                   onToggle={() => setExpandedId(prev => prev === session.id ? null : session.id)}
                   onDelete={() => handleDeleteSession(session.id)}
+                  onEdit={() => setEditSession(session)}
                 />
               ))}
             </div>
@@ -74,11 +78,23 @@ export default function WorkoutSessionsPage() {
           }}
         />
       )}
+
+      {editSession && (
+        <WorkoutLogger
+          routines={routines}
+          session={editSession}
+          onClose={() => setEditSession(null)}
+          onLogged={(saved) => {
+            setSessions(prev => prev.map(s => s.id === saved.id ? saved : s))
+            setEditSession(null)
+          }}
+        />
+      )}
     </div>
   )
 }
 
-function SessionCard({ session, onToggle, onDelete, isExpanded }) {
+function SessionCard({ session, onToggle, onDelete, onEdit, isExpanded }) {
   const sessionDate = new Date(session.date)
 
   // Group exercises while preserving the order of first appearance
@@ -116,6 +132,9 @@ function SessionCard({ session, onToggle, onDelete, isExpanded }) {
         </button>
 
         <div className="flex items-center gap-2 shrink-0">
+          <Button onClick={onEdit} variant="secondary" size="sm">
+            Edit
+          </Button>
           <Button onClick={onDelete} variant="danger" size="sm">
             Delete
           </Button>
@@ -158,15 +177,32 @@ function SessionCard({ session, onToggle, onDelete, isExpanded }) {
 // Step 1 - pick routine (or free workout)
 // Step 2 - log sets for each exercise
 
-function WorkoutLogger({ routines, onClose, onLogged }) {
-  const [step, setStep] = useState(1)
-  const [selectedRoutine, setSelectedRoutine] = useState(null)
-  const [sets, setSets] = useState([])
+// A `session` prop switches the logger into edit mode: the routine is already
+// known, so it opens straight on step 2 with the logged sets loaded.
+function WorkoutLogger({ routines, session, onClose, onLogged }) {
+  const isEdit = !!session
+  const [step, setStep] = useState(isEdit ? 2 : 1)
+  const [selectedRoutine, setSelectedRoutine] = useState(
+    isEdit ? routines.find(r => r.id === session.routineId) ?? null : null
+  )
+  const [sets, setSets] = useState(
+    isEdit
+      ? session.exercises.map(e => ({
+          exerciseId: e.exerciseId,
+          exerciseName: e.exerciseName,
+          setNumber: e.setNumber,
+          repsCompleted: e.repsCompleted,
+          weightKg: e.weightKg ?? '',
+        }))
+      : []
+  )
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   const todayLocal = new Date().toLocaleDateString('en-CA')
-  const [sessionDate, setSessionDate] = useState(todayLocal)
+  const [sessionDate, setSessionDate] = useState(
+    isEdit ? new Date(session.date).toLocaleDateString('en-CA') : todayLocal
+  )
 
   const handleSelectRoutine = (routine) => {
     setSelectedRoutine(routine)
@@ -221,14 +257,16 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
           weightKg: s.weightKg !== '' ? parseFloat(s.weightKg) : null,
         }))
       }
-      const res = await createSession(payload)
+      const res = isEdit
+        ? await updateSession(session.id, payload)
+        : await createSession(payload)
       const newSession = {
-        id: res.data.id,
+        id: isEdit ? session.id : res.data.id,
         date: payload.date,
         routineId: selectedRoutine?.id ?? null,
         routineName: selectedRoutine?.name ?? 'Free workout',
         exercises: sets.map((s, i) => ({
-          id: i,
+          id: `${i}-${s.exerciseId}-${s.setNumber}`,
           exerciseId: s.exerciseId,
           exerciseName: s.exerciseName,
           setNumber: s.setNumber,
@@ -252,11 +290,13 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-800 shrink-0">
           <div className="flex items-center gap-3">
-            {step === 2 && (
+            {step === 2 && !isEdit && (
               <button onClick={() => setStep(1)} className="text-gray-400 hover:text-white transition text-sm">←</button>
             )}
             <h2 className="text-lg font-bold">
-              {step === 1 ? 'Choose Routine' : selectedRoutine?.name ?? 'Free Workout'}
+              {step === 1
+                ? 'Choose Routine'
+                : `${isEdit ? 'Edit — ' : ''}${selectedRoutine?.name ?? 'Free Workout'}`}
             </h2>
           </div>
           <button onClick={onClose} aria-label="Close" className="text-gray-400 hover:text-white transition">✕</button>
@@ -323,8 +363,9 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1">Reps</label>
+                      <label htmlFor={`set-${index}-reps`} className="block text-xs text-gray-400 mb-1">Reps</label>
                       <input
+                        id={`set-${index}-reps`}
                         type="number" min="0"
                         value={set.repsCompleted}
                         onChange={e => updateSet(index, 'repsCompleted', e.target.value)}
@@ -332,8 +373,9 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-400 mb-1">Weight (kg)</label>
+                      <label htmlFor={`set-${index}-weight`} className="block text-xs text-gray-400 mb-1">Weight (kg)</label>
                       <input
+                        id={`set-${index}-weight`}
                         type="number" min="0" step="0.5"
                         value={set.weightKg}
                         onChange={e => updateSet(index, 'weightKg', e.target.value)}
@@ -362,7 +404,7 @@ function WorkoutLogger({ routines, onClose, onLogged }) {
                 disabled={loading || sets.length === 0}
                 size="modal"
               >
-                {loading ? 'Saving...' : 'Save session'}
+                {loading ? 'Saving...' : isEdit ? 'Save changes' : 'Save session'}
               </Button>
             </div>
           </>
