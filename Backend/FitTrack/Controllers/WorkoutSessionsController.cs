@@ -154,6 +154,56 @@ public class WorkoutSessionsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = session.Id }, new { id = session.Id });
     }
 
+    // PUT api/workoutsessions/{id}
+    // Correct an already logged session. Same validation as Create, then the old
+    // SessionExercise rows are dropped and rebuilt from the payload — mistyping
+    // one set used to mean deleting the whole session and logging it again.
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, UpdateWorkoutSessionDTO dto)
+    {
+        var userId = GetUserId();
+
+        var session = await _db.WorkoutSessions
+            .Include(s => s.SessionExercises)
+            .FirstOrDefaultAsync(s => s.Id == id && s.UserId == userId);
+
+        if (session is null)
+            return NotFound($"Session with ID {id} not found.");
+
+        // Ownership check — only when a routine is given, a session can be routine-less.
+        if (dto.RoutineId is not null)
+        {
+            var routineExists = await _db.Routines
+                .AnyAsync(r => r.Id == dto.RoutineId && r.UserId == userId);
+
+            if (!routineExists)
+                return NotFound($"The routine with ID {dto.RoutineId} was not found.");
+        }
+
+        // Validate exercise IDs exist
+        var exerciseIds = dto.Exercises.Select(e => e.ExerciseId).Distinct().ToList();
+        var foundCount = await _db.Exercises
+            .CountAsync(e => exerciseIds.Contains(e.Id));
+
+        if (foundCount != exerciseIds.Count)
+            return BadRequest("One or more exercise IDs are invalid.");
+
+        session.RoutineId = dto.RoutineId;
+        session.Date = dto.Date ?? session.Date;
+
+        _db.SessionExercises.RemoveRange(session.SessionExercises);
+        session.SessionExercises = dto.Exercises.Select(e => new SessionExercise
+        {
+            ExerciseId = e.ExerciseId,
+            SetNumber = e.SetNumber,
+            RepsCompleted = e.RepsCompleted,
+            WeightKg = e.WeightKg
+        }).ToList();
+
+        await _db.SaveChangesAsync();
+        return NoContent();
+    }
+
     // ─── DELETE api/workoutsessions/{id} ─────────────────────────────────────
     // Delete a session. SessionExercises cascade delete automatically.
     // Useful if the user logged a session by mistake.
