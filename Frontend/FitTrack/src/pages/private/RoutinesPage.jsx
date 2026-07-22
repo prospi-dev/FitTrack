@@ -33,6 +33,9 @@ export default function RoutinesPage() {
   // Edit exercise entry modal — null=closed, entry object=open
   const [editEntry, setEditEntry] = useState(null)
 
+  // Routine whose exercises are mid-reorder — locks its arrows against double clicks
+  const [movingId, setMovingId] = useState(null)
+
   const handleDeleteRoutine = async (id) => {
     if (!confirm('Delete this routine?')) return
     try {
@@ -54,6 +57,37 @@ export default function RoutinesPage() {
       ))
     } catch {
       alert('Failed to remove exercise.')
+    }
+  }
+
+  // Move an exercise one slot up or down. Orders can end up duplicated or gapped
+  // (adding uses length + 1, removing leaves a hole), so rather than swapping two
+  // values we renumber the whole list and only PUT the entries that actually moved.
+  const handleMoveExercise = async (routineId, index, direction) => {
+    const routine = routines.find(r => r.id === routineId)
+    if (!routine) return
+
+    const target = index + direction
+    if (target < 0 || target >= routine.exercises.length) return
+
+    const before = routine.exercises
+    const moved = [...before]
+    ;[moved[index], moved[target]] = [moved[target], moved[index]]
+    const renumbered = moved.map((entry, i) => ({ ...entry, order: i + 1 }))
+
+    setMovingId(routineId)
+    setRoutines(prev => prev.map(r => r.id === routineId ? { ...r, exercises: renumbered } : r))
+
+    try {
+      const changed = renumbered.filter((entry, i) => entry.order !== before[i].order || entry.id !== before[i].id)
+      await Promise.all(changed.map(entry =>
+        updateRoutineExercise(routineId, entry.id, { order: entry.order })
+      ))
+    } catch {
+      setRoutines(prev => prev.map(r => r.id === routineId ? { ...r, exercises: before } : r))
+      alert('Failed to reorder exercises.')
+    } finally {
+      setMovingId(null)
     }
   }
 
@@ -87,6 +121,8 @@ export default function RoutinesPage() {
                   onAddExercise={() => setPickerRoutineId(routine.id)}
                   onEditEntry={(entry) => setEditEntry({ ...entry, routineId: routine.id })}
                   onRemoveEntry={(entryId) => handleRemoveExercise(routine.id, entryId)}
+                  onMoveEntry={(index, direction) => handleMoveExercise(routine.id, index, direction)}
+                  isMoving={movingId === routine.id}
                 />
               ))}
             </div>
@@ -147,7 +183,7 @@ export default function RoutinesPage() {
 }
 
 // Routine Card 
-function RoutineCard({ routine, isExpanded, onToggle, onEdit, onDelete, onAddExercise, onEditEntry, onRemoveEntry }) {
+function RoutineCard({ routine, isExpanded, onToggle, onEdit, onDelete, onAddExercise, onEditEntry, onRemoveEntry, onMoveEntry, isMoving }) {
   return (
     <Card padding="" className="overflow-hidden">
       {/* Card header — always visible */}
@@ -198,6 +234,24 @@ function RoutineCard({ routine, isExpanded, onToggle, onEdit, onDelete, onAddExe
                   </p>
                 </div>
                 <div className="flex gap-2 shrink-0">
+                  <div className="flex flex-col gap-0.5">
+                    <button
+                      onClick={() => onMoveEntry(index, -1)}
+                      disabled={index === 0 || isMoving}
+                      aria-label={`Move ${entry.exerciseName} up`}
+                      className="text-[10px] leading-none text-gray-400 hover:text-white bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:hover:bg-gray-700 disabled:hover:text-gray-400 px-1.5 py-1 rounded transition"
+                    >
+                      ▲
+                    </button>
+                    <button
+                      onClick={() => onMoveEntry(index, 1)}
+                      disabled={index === routine.exercises.length - 1 || isMoving}
+                      aria-label={`Move ${entry.exerciseName} down`}
+                      className="text-[10px] leading-none text-gray-400 hover:text-white bg-gray-700 hover:bg-gray-600 disabled:opacity-30 disabled:hover:bg-gray-700 disabled:hover:text-gray-400 px-1.5 py-1 rounded transition"
+                    >
+                      ▼
+                    </button>
+                  </div>
                   <button
                     onClick={() => onEditEntry(entry)}
                     className="text-xs text-gray-400 hover:text-white bg-gray-700 hover:bg-gray-600 px-2 py-1 rounded-lg transition"
