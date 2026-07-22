@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../../context/useAuth'
 import { updateName, changePassword, deleteAccount } from '../../api/profile'
+import errorMessage from '../../api/errorMessage'
 import Button from '../../components/Button'
 
 export default function ProfilePage() {
@@ -32,7 +33,7 @@ export default function ProfilePage() {
       login({ ...user, name: res.data.name, token: res.data.token })
       setNameMsg({ type: 'success', text: 'Name updated successfully.' })
     } catch (err) {
-      setNameMsg({ type: 'error', text: err.response?.data || 'Failed to update name.' })
+      setNameMsg({ type: 'error', text: errorMessage(err, 'Failed to update name.') })
     } finally {
       setNameLoading(false)
     }
@@ -53,7 +54,7 @@ export default function ProfilePage() {
       setNewPassword('')
       setConfirmPassword('')
     } catch (err) {
-      setPasswordMsg({ type: 'error', text: err.response?.data || 'Failed to change password.' })
+      setPasswordMsg({ type: 'error', text: errorMessage(err, 'Failed to change password.') })
     } finally {
       setPasswordLoading(false)
     }

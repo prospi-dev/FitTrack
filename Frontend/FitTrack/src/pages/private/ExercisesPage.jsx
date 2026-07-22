@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getExercises, createExercise, updateExercise, deleteExercise } from '../../api/exercises'
+import errorMessage from '../../api/errorMessage'
 import { useAuth } from '../../context/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { MUSCLE_GROUPS } from '../../constants/muscleGroups'
@@ -185,7 +186,7 @@ function ExerciseModal({ exercise, onClose, onSaved }) {
         onSaved(res.data, true)
       }
     } catch (err) {
-      setError(err.response?.data || 'Something went wrong.')
+      setError(errorMessage(err, 'Something went wrong.'))
     } finally {
       setLoading(false)
     }

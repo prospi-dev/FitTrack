@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getMyRequests, createRequest, deleteRequest } from '../../api/exerciseRequests'
+import errorMessage from '../../api/errorMessage'
 import { MUSCLE_GROUPS } from '../../constants/muscleGroups'
 import StatusBadge from '../../components/StatusBadge'
 import Card from '../../components/Card'
@@ -31,7 +32,7 @@ export default function ExerciseRequestsPage() {
       setShowForm(false)
       fetchRequests()
     } catch (err) {
-      setFormMsg(err.response?.data || 'Failed to submit request.')
+      setFormMsg(errorMessage(err, 'Failed to submit request.'))
     } finally {
       setSubmitting(false)
     }
