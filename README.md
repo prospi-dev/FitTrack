@@ -182,6 +182,8 @@ cd FitTrack
    ```
    By default this uses the `http` profile (`http://localhost:5111`). Note which profile/port you're on (`https` → `7239`, `http` → `5111`) — the frontend's `VITE_API_URL` must match it.
 
+   > If you use the `https` profile, run `dotnet dev-certs https --trust` first. Without a trusted dev certificate the browser silently blocks the API calls and the frontend just renders a blank screen.
+
 ### 3. Frontend Setup (React + Vite)
 1. Open a new terminal and navigate to the frontend directory:
    ```bash
