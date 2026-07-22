@@ -15,4 +15,10 @@ COPY --from=build /app/out .
 EXPOSE 8080
 ENV ASPNETCORE_URLS=http://+:8080
 
+# CreateBuilder puts a FileSystemWatcher on every appsettings file so config can
+# reload at runtime. The host runs out of inotify instances (limit 128) and the
+# process dies before Program.cs gets going. Config never changes inside an
+# immutable image, so drop the watchers.
+ENV DOTNET_hostBuilder__reloadConfigOnChange=false
+
 ENTRYPOINT ["dotnet", "FitTrack.dll"]
