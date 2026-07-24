@@ -21,5 +21,6 @@ public class AddExerciseToRoutineDTO
     [Range(1, 1000)]
     public int Reps { get; set; }
 
+    [Range(0, 1000)]
     public float? WeightKg { get; set; }
 }

@@ -18,5 +18,6 @@ public class LogSessionExerciseDTO
     [Range(0, 10000)]
     public int RepsCompleted { get; set; }
 
+    [Range(0, 1000)]
     public float? WeightKg { get; set; }
 }
