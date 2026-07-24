@@ -95,7 +95,14 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+
+    // Apply EF migrations against a real (relational) database; the in-memory
+    // provider used by integration tests can't run migrations, so just
+    // materialise the model there instead.
+    if (db.Database.IsRelational())
+        db.Database.Migrate();
+    else
+        db.Database.EnsureCreated();
 
     // Seed Admin user
     var adminEmail = builder.Configuration["AdminEmail"];
@@ -230,3 +237,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Exposed so the integration-test project's WebApplicationFactory<Program> can
+// bootstrap the real app pipeline. Program is otherwise implicit (top-level statements).
+public partial class Program { }
