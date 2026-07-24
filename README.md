@@ -48,7 +48,8 @@ This is a **personal portfolio/learning project**, built to practise full-stack 
 **🔐 Authentication**
 
 - User registration and login (JWT-based authentication)
-- Secure password hashing with BCrypt
+- Secure password hashing with BCrypt (8–72 character policy)
+- Rate-limited auth endpoints (fixed-window) to blunt brute-force
 - Protected and public routes
 - Automatic session expiration handling
 
@@ -69,7 +70,15 @@ This is a **personal portfolio/learning project**, built to practise full-stack 
 
 - Log training sessions linked to routines or as free workouts
 - Record sets (weight & reps) per exercise
-- View and delete past sessions
+- View, edit, and delete past sessions
+
+**📊 Dashboard & Progress Analytics**
+
+- Strength **progress chart** — top-set weight or total volume per exercise over time
+- **Activity heatmap** (GitHub-style calendar) with a consecutive-week training streak
+- **Muscle-group body map** — front/back figure shaded by set volume per muscle
+- Automatic **personal-record detection** with a Recent PRs feed and a celebration when you beat a lift
+- All hand-built as dependency-free SVG (no chart library)
 
 **👤 User Profile**
 
@@ -92,9 +101,10 @@ This is a **personal portfolio/learning project**, built to practise full-stack 
 **Frontend**
 - React 19 + Vite
 - React Router v7
-- Tailwind CSS v4
+- Tailwind CSS v4 (design-token system via `@theme`)
 - Axios
 - EmailJS
+- Vitest + React Testing Library
 
 **Backend**
 - ASP.NET Core 9 Web API
@@ -103,6 +113,8 @@ This is a **personal portfolio/learning project**, built to practise full-stack 
 - JWT Authentication
 - BCrypt
 - FluentValidation
+- Built-in rate limiting
+- xUnit + WebApplicationFactory integration tests
 
 **Infrastructure**
 - Docker
@@ -214,14 +226,19 @@ Now you can open `http://localhost:5173` in your browser to see the app!
 - [x] User profile management
 - [x] Admin panel
 - [x] Deployment
+- [x] Dashboard progress chart, activity heatmap & streak
+- [x] Muscle-group body map
+- [x] Personal-record tracking & celebration
+- [x] Design-token system (slate + Iris) and accessible modal/toast layer
+- [x] Backend integration tests & auth rate limiting
 
 ## 🔮 Future Improvements
 
-- Expand frontend test coverage (vitest + React Testing Library are set up; core auth/routing paths are covered) and add backend unit/integration tests
 - CI pipeline (build + lint + test on push)
-- Data visualization charts (progress over time)
+- Migrate the remaining custom modals onto the shared accessible `Modal`
+- Exercise thumbnails and richer list-row design
+- Store weights as `decimal` (migration) instead of `float`
 - Export training history
-- Personal records tracking
 
 ## 👤 Author
 
