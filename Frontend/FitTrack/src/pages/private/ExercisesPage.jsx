@@ -5,6 +5,8 @@ import { useAuth } from '../../context/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { MUSCLE_GROUPS } from '../../constants/muscleGroups'
 import { useFetch } from '../../hooks/useFetch'
+import { useConfirm } from '../../context/confirm-context'
+import { useToast } from '../../context/toast-context'
 import Card from '../../components/Card'
 import Button from '../../components/Button'
 
@@ -20,6 +22,8 @@ export default function ExercisesPage() {
   const navigate = useNavigate()
   // Modal state — null = closed, 'create' or the exercise object = open
   const [modal, setModal] = useState(null)
+  const confirm = useConfirm()
+  const toast = useToast()
 
   // ─── Filter by search ────────────────────────────────────────────────────
   // We filter client-side since the full catalogue is small.
@@ -31,12 +35,18 @@ export default function ExercisesPage() {
 
   // Delete 
   const handleDelete = async (id) => {
-    if (!confirm('Delete this exercise?')) return
+    const ok = await confirm({
+      title: 'Delete exercise?',
+      message: 'This removes the exercise from the catalogue.',
+      confirmText: 'Delete',
+      danger: true,
+    })
+    if (!ok) return
     try {
       await deleteExercise(id)
       setExercises(prev => prev.filter(e => e.id !== id))
     } catch {
-      alert('Failed to delete. It may be in use by a routine or session.')
+      toast.error('Failed to delete. It may be in use by a routine or session.')
     }
   }
 

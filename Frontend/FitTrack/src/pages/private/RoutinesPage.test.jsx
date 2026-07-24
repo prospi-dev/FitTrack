@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import RoutinesPage from './RoutinesPage'
+import { ToastProvider } from '../../context/toast'
+import { ConfirmProvider } from '../../context/confirm'
 import { getRoutines, updateRoutineExercise } from '../../api/routines'
 import { getExercises } from '../../api/exercises'
 
@@ -21,7 +23,13 @@ const routine = () => ({
 })
 
 const expandRoutine = async (user) => {
-  render(<RoutinesPage />)
+  render(
+    <ToastProvider>
+      <ConfirmProvider>
+        <RoutinesPage />
+      </ConfirmProvider>
+    </ToastProvider>
+  )
   await screen.findByText('Push day')
   await user.click(screen.getByText('Push day'))
 }
@@ -67,14 +75,14 @@ describe('RoutinesPage reordering', () => {
 
   it('restores the previous order when the API rejects', async () => {
     updateRoutineExercise.mockRejectedValue(new Error('boom'))
-    vi.spyOn(window, 'alert').mockImplementation(() => {})
     const user = userEvent.setup()
     await expandRoutine(user)
 
     await user.click(screen.getByLabelText('Move Bench press down'))
 
+    // The failure surfaces as a toast and the optimistic reorder is rolled back.
     await waitFor(() => {
-      expect(window.alert).toHaveBeenCalledWith('Failed to reorder exercises.')
+      expect(screen.getByText('Failed to reorder exercises.')).toBeInTheDocument()
     })
     expect(listedExerciseNames()).toEqual(['Bench press', 'Overhead press'])
   })

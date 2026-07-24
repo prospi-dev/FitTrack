@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { getSessions, deleteSession, createSession, updateSession } from '../../api/workoutSessions'
 import { getRoutines } from '../../api/routines'
 import { useFetch } from '../../hooks/useFetch'
+import { useConfirm } from '../../context/confirm-context'
+import { useToast } from '../../context/toast-context'
 import Card from '../../components/Card'
 import Button from '../../components/Button'
 
@@ -22,15 +24,23 @@ export default function WorkoutSessionsPage() {
 
   // Session being corrected — null means the logger opens in "new session" mode
   const [editSession, setEditSession] = useState(null)
+  const confirm = useConfirm()
+  const toast = useToast()
 
   const handleDeleteSession = async (id) => {
-    if (!confirm('Delete this session?')) return
+    const ok = await confirm({
+      title: 'Delete session?',
+      message: 'This permanently removes this session and its logged sets.',
+      confirmText: 'Delete',
+      danger: true,
+    })
+    if (!ok) return
     try {
       await deleteSession(id)
       setSessions(prev => prev.filter(s => s.id !== id))
       if (expandedId === id) setExpandedId(null)
     } catch {
-      alert('Failed to delete session.')
+      toast.error('Failed to delete session.')
     }
   }
 

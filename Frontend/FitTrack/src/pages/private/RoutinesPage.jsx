@@ -5,6 +5,8 @@ import {
 } from '../../api/routines'
 import { getExercises } from '../../api/exercises'
 import { useFetch } from '../../hooks/useFetch'
+import { useConfirm } from '../../context/confirm-context'
+import { useToast } from '../../context/toast-context'
 import Card from '../../components/Card'
 import Button from '../../components/Button'
 
@@ -35,15 +37,23 @@ export default function RoutinesPage() {
 
   // Routine whose exercises are mid-reorder — locks its arrows against double clicks
   const [movingId, setMovingId] = useState(null)
+  const confirm = useConfirm()
+  const toast = useToast()
 
   const handleDeleteRoutine = async (id) => {
-    if (!confirm('Delete this routine?')) return
+    const ok = await confirm({
+      title: 'Delete routine?',
+      message: 'This permanently removes the routine and its exercises.',
+      confirmText: 'Delete',
+      danger: true,
+    })
+    if (!ok) return
     try {
       await deleteRoutine(id)
       setRoutines(prev => prev.filter(r => r.id !== id))
       if (expandedId === id) setExpandedId(null)
     } catch {
-      alert('Failed to delete routine.')
+      toast.error('Failed to delete routine.')
     }
   }
 
@@ -56,7 +66,7 @@ export default function RoutinesPage() {
           : r
       ))
     } catch {
-      alert('Failed to remove exercise.')
+      toast.error('Failed to remove exercise.')
     }
   }
 
@@ -85,7 +95,7 @@ export default function RoutinesPage() {
       ))
     } catch {
       setRoutines(prev => prev.map(r => r.id === routineId ? { ...r, exercises: before } : r))
-      alert('Failed to reorder exercises.')
+      toast.error('Failed to reorder exercises.')
     } finally {
       setMovingId(null)
     }
