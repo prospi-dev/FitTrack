@@ -25,8 +25,12 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDTO dto)
     {
+        // Keep the message neutral rather than confirming "this email is already
+        // registered", to limit account enumeration. Status-code-level enumeration
+        // is still possible without an email-verification flow; the auth rate
+        // limiter (Program.cs) mitigates bulk probing.
         if (await _db.Users.AnyAsync(u => u.Email == dto.Email))
-            return Conflict("Email already in use.");
+            return Conflict("Could not complete registration. If you already have an account, try signing in.");
 
         var user = new User
         {
