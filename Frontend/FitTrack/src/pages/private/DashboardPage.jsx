@@ -6,6 +6,7 @@ import { useFetch } from '../../hooks/useFetch'
 import ProgressChart from '../../components/ProgressChart'
 import ActivityHeatmap from '../../components/ActivityHeatmap'
 import MuscleMap from '../../components/MuscleMap'
+import RecentPRs from '../../components/RecentPRs'
 
 async function fetchStats() {
   const [sessionsRes, routinesRes] = await Promise.all([
@@ -108,6 +109,9 @@ export default function DashboardPage() {
         <>
           {/* Progress over time */}
           {!loading && <ProgressChart sessions={stats?.sessions ?? []} />}
+
+          {/* Recent personal records */}
+          {!loading && <RecentPRs sessions={stats?.sessions ?? []} />}
 
           {/* Training activity calendar */}
           {!loading && <ActivityHeatmap sessions={stats?.sessions ?? []} />}

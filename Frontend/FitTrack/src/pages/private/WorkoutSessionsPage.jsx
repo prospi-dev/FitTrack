@@ -4,6 +4,7 @@ import { getRoutines } from '../../api/routines'
 import { useFetch } from '../../hooks/useFetch'
 import { useConfirm } from '../../context/confirm-context'
 import { useToast } from '../../context/toast-context'
+import { detectNewPRs } from '../../utils/prs'
 import Card from '../../components/Card'
 import Button from '../../components/Button'
 
@@ -83,8 +84,11 @@ export default function WorkoutSessionsPage() {
           routines={routines}
           onClose={() => setShowLogger(false)}
           onLogged={(newSession) => {
+            // Celebrate any set that just beat its exercise's previous best.
+            const prs = detectNewPRs(sessions, newSession)
             setSessions(prev => [newSession, ...prev])
             setShowLogger(false)
+            prs.forEach(pr => toast.celebrate(`New ${pr.exerciseName} PR — ${pr.weightKg} kg!`))
           }}
         />
       )}
