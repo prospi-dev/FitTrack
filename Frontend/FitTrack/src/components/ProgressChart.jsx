@@ -11,12 +11,12 @@ const VB_W = 640
 const VB_H = 260
 const PAD = { top: 16, right: 18, bottom: 30, left: 46 }
 
-// Accent (app blue-400) for the line; recessive grays for grid/axis/ink.
-const LINE = '#60a5fa'
-const AREA = 'rgba(96, 165, 250, 0.12)'
-const GRID = '#1f2937' // gray-800
-const AXIS_INK = '#6b7280' // gray-500
-const LABEL_INK = '#9ca3af' // gray-400
+// Iris accent for the line; recessive slate for grid/axis/ink (matches @theme).
+const LINE = '#6d7bff'
+const AREA = 'rgba(109, 123, 255, 0.14)'
+const GRID = '#262a36' // line
+const AXIS_INK = '#868ca1' // ink-faint
+const LABEL_INK = '#a6acc0' // ink-muted
 
 const METRICS = {
   weight: { label: 'Top set', unit: 'kg' },
@@ -220,7 +220,7 @@ function ChartBody({ coords, linePath, areaPath, ticks, y, labelIdx, unit, metri
         {/* Points + hit targets */}
         {coords.map((c, i) => (
           <g key={i}>
-            <circle cx={c.cx} cy={c.cy} r="3.5" fill={LINE} stroke="#0b1220" strokeWidth="1.5" />
+            <circle cx={c.cx} cy={c.cy} r="3.5" fill={LINE} stroke="#13151c" strokeWidth="1.5" />
             <circle
               cx={c.cx}
               cy={c.cy}

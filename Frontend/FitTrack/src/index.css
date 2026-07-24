@@ -1,2 +1,85 @@
 @import "tailwindcss";
 @plugin "tailwind-scrollbar";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FitTrack design tokens (Tailwind v4 @theme)
+
+   Two things happen here:
+   1. The default gray/blue scales are re-pointed at a cool near-black "slate"
+      ramp and an "Iris" signature accent, so every existing `bg-gray-900`,
+      `text-gray-400`, `bg-blue-600`… utility across the app restyles at once
+      — no 20-file find-replace, and the whole product loses its default look.
+   2. Semantic aliases (surface / ink / accent + radius/shadow) are exposed for
+      new components to use directly: `bg-surface-1`, `text-ink-muted`, etc.
+   ───────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Type */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+
+  /* Cool near-black slate ramp (overrides default neutral gray) */
+  --color-gray-50:  #f6f7f9;
+  --color-gray-100: #e8eaf0;
+  --color-gray-200: #d0d4e0;
+  --color-gray-300: #b2b8c9;
+  --color-gray-400: #9298ad;
+  --color-gray-500: #868ca1;
+  --color-gray-600: #757b8e;
+  --color-gray-700: #3a4050;
+  --color-gray-800: #262a36;
+  --color-gray-900: #13151c;
+  --color-gray-950: #0a0b0f;
+
+  /* Iris signature accent (overrides default sample blue).
+     Hover steps are intentionally *darker* than 600 so every existing
+     hover:bg-blue-500 / blue-700 darkens consistently. blue-400 stays bright
+     for accent text/links on dark surfaces. */
+  --color-blue-400: #9aa2ff;
+  --color-blue-500: #5866f5;
+  --color-blue-600: #6d7bff;
+  --color-blue-700: #4b57e0;
+
+  /* ── Semantic aliases (for new components) ── */
+  --color-surface-0: #0a0b0f; /* app background */
+  --color-surface-1: #13151c; /* cards */
+  --color-surface-2: #1c1f29; /* hover / raised / inputs */
+  --color-surface-3: #262a36; /* active / nested rows */
+  --color-line:        #262a36;
+  --color-line-strong: #3a4050;
+
+  --color-ink:       #f5f6f8;
+  --color-ink-muted: #a6acc0;
+  --color-ink-faint: #868ca1;
+
+  --color-accent:       #6d7bff;
+  --color-accent-hover: #5866f5;
+  --color-accent-ink:   #9aa2ff;
+  --color-accent-soft:  color-mix(in oklab, #6d7bff 14%, transparent);
+
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger:  #f87171;
+
+  /* Radius + elevation — the missing depth layer */
+  --radius-card:  1rem;
+  --radius-field: 0.625rem;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.40), 0 12px 32px -16px rgb(0 0 0 / 0.55);
+  --shadow-pop:  0 8px 40px -8px rgb(0 0 0 / 0.6);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-surface-0);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Numeric displays (stats, chart axes, weights) shouldn't jitter as digits
+     change — tabular figures keep columns aligned. */
+  .nums {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+}

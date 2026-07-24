@@ -138,7 +138,7 @@ function StatCard({ label, value, icon, small = false }) {
   return (
     <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
       <div className="text-xl mb-2">{icon}</div>
-      <div className={`font-bold text-white mb-1 ${small ? 'text-sm' : 'text-2xl'}`}>
+      <div className={`nums font-bold text-white mb-1 ${small ? 'text-sm' : 'text-3xl'}`}>
         {value}
       </div>
       <div className="text-gray-500 text-xs">{label}</div>
