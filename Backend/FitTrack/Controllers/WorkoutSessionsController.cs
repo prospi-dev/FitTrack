@@ -118,12 +118,17 @@ public class WorkoutSessionsController : ControllerBase
     {
         var userId = GetUserId();
 
-        // Ownership check
-        var routineExists = await _db.Routines
-            .AnyAsync(r => r.Id == dto.RoutineId && r.UserId == userId);
+        // Ownership check — only when a routine is given, a session can be routine-less
+        // (a "free workout"). A null RoutineId must not run the ownership query, or the
+        // `r.Id == null` comparison never matches and every free workout is rejected 404.
+        if (dto.RoutineId is not null)
+        {
+            var routineExists = await _db.Routines
+                .AnyAsync(r => r.Id == dto.RoutineId && r.UserId == userId);
 
-        if (!routineExists)
-            return NotFound($"The routine with ID {dto.RoutineId} was not found.");
+            if (!routineExists)
+                return NotFound($"The routine with ID {dto.RoutineId} was not found.");
+        }
 
         // Validate exercises IDs exist
         var exerciseIds = dto.Exercises.Select(e => e.ExerciseId).Distinct().ToList();
