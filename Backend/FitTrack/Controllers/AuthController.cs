@@ -3,12 +3,14 @@ using FitTrack.DTOs.Auth;
 using FitTrack.Models;
 using FitTrack.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitTrack.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[EnableRateLimiting("auth")] // throttle login/register against brute force
 public class AuthController : ControllerBase
 {
     private readonly AppDbContext _db;

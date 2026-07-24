@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.RateLimiting;
 using FitTrack.Data;
 using FitTrack.Models;
 using FitTrack.Services;
@@ -67,6 +68,26 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorization();
+
+// Rate limiting — throttles the authentication endpoints so login/register can't
+// be brute-forced. Partitioned by client IP; each IP gets a fixed window of
+// attempts, and anything over the limit is rejected with 429 (no queueing).
+// Note: behind a reverse proxy (e.g. Render) RemoteIpAddress is the proxy unless
+// forwarded headers are wired up — acceptable for this portfolio deployment.
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddPolicy("auth", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+});
 
 var app = builder.Build();
 
@@ -202,6 +223,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("FrontendPolicy");
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
