@@ -24,6 +24,15 @@ Backend/FitTrack/appsettings.Development.json
 Backend/FitTrack/appsettings.Local.json
 Backend/FitTrack/secrets.json
 
+# ---- CLAUDE CODE ----
+# Track shared config (agents/, skills/) but ignore local/personal state.
+.claude/settings.local.json
+.claude/scratchpad/
+.claude/memory/
+.claude/projects/
+.claude/todos/
+.claude/*.local.md
+
 # ---- SYSTEM ----
 *.log
 *.tmp
