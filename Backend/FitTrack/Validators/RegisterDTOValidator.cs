@@ -20,6 +20,9 @@ public class RegisterDTOValidator : AbstractValidator<RegisterDTO>
 
         RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Password is required.")
-            .MinimumLength(6).WithMessage("Password must be at least 6 characters.");
+            .MinimumLength(8).WithMessage("Password must be at least 8 characters.")
+            // BCrypt only hashes the first 72 bytes, so cap the length here to
+            // avoid silently truncating longer passwords.
+            .MaximumLength(72).WithMessage("Password must be 72 characters or fewer.");
     }
 }

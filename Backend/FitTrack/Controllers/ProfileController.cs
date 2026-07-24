@@ -72,8 +72,14 @@ public class ProfileController : ControllerBase
         if (!BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash))
             return BadRequest("Current password is incorrect.");
 
-        if (dto.NewPassword.Length < 6)
-            return BadRequest("New password must be at least 6 characters.");
+        // Mirror the registration rules: at least 8 chars, and no more than 72
+        // (BCrypt only hashes the first 72 bytes, so anything longer is silently
+        // truncated).
+        if (dto.NewPassword is null || dto.NewPassword.Length < 8)
+            return BadRequest("New password must be at least 8 characters.");
+
+        if (dto.NewPassword.Length > 72)
+            return BadRequest("New password must be 72 characters or fewer.");
 
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
         await _db.SaveChangesAsync();
